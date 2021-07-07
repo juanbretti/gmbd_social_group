@@ -1,0 +1,2 @@
+# gmbd_social_group
+GMBD\SOCIAL NETWORKS ANALYSIS (MBD-EN-BL2020J-1_32R220_387064)\Group Assignment
