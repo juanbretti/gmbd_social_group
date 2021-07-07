@@ -1,0 +1,100 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+# Description
+
+The final assignment consist in the practical analysis of a dataset you pick. Please, choose as sooner as possible and send it to me. I will advise if it is difficult or not. 
+
+You can analyse any dataset, at least you should try to discover who are the most important nodes of the graph, analyse some properties of the graph (diameter, avg pathe length, histograms and plots of some metrics, etc.), try to find communities. Other aspects you could try involve specific analysis and descriptives of your datasets, link prediction (similar to recommendation engines), sentiment analysis of each group, information diffussion, usage of metrics or techniques not seen in class, etc.
+
+In the report will be valued the originality, the use of the techniques shown during the module and the complexity of them, the quality of insights you get, the complexity of the graph, the correctness, etc.
+
+The presentation will consist of an exposition of 10 minutes and 3-4 minutes of questions (mainly from other students). And it will be valued the knowledge of the material, the organization, the clarity of the explanations, the impact of graphs and slides, the timing, etc.
+
+Deliverable consist of the PPT of the exposition, the analysis in Rmd/python and a report with the explanations (HTML or pdf).
+
+# Environment
+
+```{r}
+library(tidyverse)
+library(igraph)
+```
+
+# Load data
+
+```{r}
+data_music <- read_csv('data/full_music_data.csv')
+data_influence <- read_csv('data/influence_data.csv')
+data_artist <- read_csv('data/data_by_artist.csv')
+```
+
+```{r}
+head(sort(table(data_music['artist_names']), decreasing =FALSE), 5)
+```
+
+
+```{r}
+data_music %>% 
+  transform(artists_id = strsplit(str_trim(str_remove_all(artists_id, '[\\[\\]]'), side='both'), ",")) %>% 
+  unnest(artists_id)
+  # dplyr::filter(grepl(',', artist_names))
+```
+
+Problem with unknown artist
+
+```{r}
+unique_a <- unique(data_artist['artist_id'])
+unique_b <- unique(data_influence['influencer_id'])
+unique_c <- unique(data_influence['follower_id'])
+
+table(unlist(unique_b) %in% unlist(unique_a))
+table(unlist(unique_c) %in% unlist(unique_a))
+```
+
+```{r}
+unknown_artist <- unique_c[!(unlist(unique_c) %in% unlist(unique_a)),]
+```
+
+Create the graph
+
+```{r}
+data_influence_edges <- data_influence %>% 
+  rename(from=influencer_id, to=follower_id) %>% 
+  relocate(from, to) %>% 
+  filter(!(to %in% unknown_artist))
+
+data_artist_vertices <- data_artist %>% 
+  relocate(artist_id)
+
+g <- graph_from_data_frame(d=data_influence_edges, vertices=data_artist_vertices, directed=TRUE) 
+```
+
+
+```{r}
+# https://stackoverflow.com/questions/44892923/how-to-increase-length-of-edges-when-plotting-a-graph-in-r
+# https://stackoverflow.com/questions/32012080/changing-the-spacing-between-vertices-in-igraph-in-r
+# test.layout <- layout_(g, with_dh(weight.edge.lengths = edge_density(g)/1000))
+# plot(g, layout = test.layout)
+plot(g)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
