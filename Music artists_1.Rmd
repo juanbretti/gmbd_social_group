@@ -66,6 +66,7 @@ data_influence_edges <- data_influence %>%
   filter(!(to %in% unknown_artist))
 
 data_artist_vertices <- data_artist %>% 
+  rename(name=artist_name) %>% 
   relocate(artist_id)
 
 g <- graph_from_data_frame(d=data_influence_edges, vertices=data_artist_vertices, directed=TRUE) 
@@ -77,14 +78,12 @@ g <- graph_from_data_frame(d=data_influence_edges, vertices=data_artist_vertices
 # https://stackoverflow.com/questions/32012080/changing-the-spacing-between-vertices-in-igraph-in-r
 # test.layout <- layout_(g, with_dh(weight.edge.lengths = edge_density(g)/1000))
 # plot(g, layout = test.layout)
-plot(g)
+# plot(g)
 ```
 
 Remove vertices
 https://stackoverflow.com/questions/29784095/conditional-removing-of-vertices-based-on-attributes-in-r
 https://stackoverflow.com/questions/53696798/filter-igraph-object-by-vertex-attribute-value
-
-
 
 From
 https://stackoverflow.com/questions/3305669/how-do-i-find-the-edges-of-a-vertex-using-igraph-and-r
@@ -102,12 +101,31 @@ https://igraph.org/r/doc/subgraph.html
 
 ```{r}
 # Nat King Cole	 
-filter_idx <- match("317093", V(g)$name)
+filter_idx <- match("Madonna", V(g)$name)
 filter_edges <- as.numeric(E(g)[from(filter_idx)])
 g1 <- subgraph.edges(g, filter_edges, delete.vertices = TRUE)
                        
 plot(g1)
 ```
+
+Topology-Ego Filter
+https://stackoverflow.com/a/39992337/3780957
+
+```{r}
+g_ego <- make_ego_graph(g, order = 1, nodes = 'Gloria Estefan', mode = "all", mindist = 0)
+g_ego <- make_ego_graph(g, order = 1, nodes = 'Enrique Iglesias', mode = "all", mindist = 0)
+g_ego <- g_ego[[1]]
+plot(g_ego, edge.arrow.size=.2)
+```
+
+
+
+
+
+
+
+
+
 
 
 
