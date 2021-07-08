@@ -80,20 +80,34 @@ g <- graph_from_data_frame(d=data_influence_edges, vertices=data_artist_vertices
 plot(g)
 ```
 
+Remove vertices
+https://stackoverflow.com/questions/29784095/conditional-removing-of-vertices-based-on-attributes-in-r
+https://stackoverflow.com/questions/53696798/filter-igraph-object-by-vertex-attribute-value
 
 
 
+From
+https://stackoverflow.com/questions/3305669/how-do-i-find-the-edges-of-a-vertex-using-igraph-and-r
 
+```{r}
+# g1 <- delete_vertices(g, V(g)$danceability >= 0.9)
 
+g1 <- induced_subgraph(g, V(g)$danceability >= 0.85)
+g1 <- induced_subgraph(g, V(g)$tempo >= 180)
+```
 
+Remove edges
+https://stackoverflow.com/questions/25413633/igraph-in-r-how-to-select-edges-based-on-incident-vertex-attributes
+https://igraph.org/r/doc/subgraph.html
 
-
-
-
-
-
-
-
+```{r}
+# Nat King Cole	 
+filter_idx <- match("317093", V(g)$name)
+filter_edges <- as.numeric(E(g)[from(filter_idx)])
+g1 <- subgraph.edges(g, filter_edges, delete.vertices = TRUE)
+                       
+plot(g1)
+```
 
 
 
