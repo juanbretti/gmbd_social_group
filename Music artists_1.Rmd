@@ -1,39 +1,53 @@
 ---
-title: "R Notebook"
-output: html_notebook
+title: "SOCIAL NETWORKS ANALYSIS (MBD-EN-BL2020J-1_32R220_387064)"
+author: "Alberto I., Daniel R., Iman H., Juan Pedro B., Pablo B., Vania M."
+output: html_document
 ---
 
 # Description
 
-The final assignment consist in the practical analysis of a dataset you pick. Please, choose as sooner as possible and send it to me. I will advise if it is difficult or not. 
+The final assignment consist in the practical analysis of a dataset you
+pick. Please, choose as sooner as possible and send it to me. I will
+advise if it is difficult or not.
 
-You can analyse any dataset, at least you should try to discover who are the most important nodes of the graph, analyse some properties of the graph (diameter, avg pathe length, histograms and plots of some metrics, etc.), try to find communities. Other aspects you could try involve specific analysis and descriptives of your datasets, link prediction (similar to recommendation engines), sentiment analysis of each group, information diffussion, usage of metrics or techniques not seen in class, etc.
+You can analyse any dataset, at least you should try to discover who are
+the most important nodes of the graph, analyse some properties of the
+graph (diameter, avg pathe length, histograms and plots of some metrics,
+etc.), try to find communities. Other aspects you could try involve
+specific analysis and descriptives of your datasets, link prediction
+(similar to recommendation engines), sentiment analysis of each group,
+information diffussion, usage of metrics or techniques not seen in
+class, etc.
 
-In the report will be valued the originality, the use of the techniques shown during the module and the complexity of them, the quality of insights you get, the complexity of the graph, the correctness, etc.
+In the report will be valued the originality, the use of the techniques
+shown during the module and the complexity of them, the quality of
+insights you get, the complexity of the graph, the correctness, etc.
 
-The presentation will consist of an exposition of 10 minutes and 3-4 minutes of questions (mainly from other students). And it will be valued the knowledge of the material, the organization, the clarity of the explanations, the impact of graphs and slides, the timing, etc.
+The presentation will consist of an exposition of 10 minutes and 3-4
+minutes of questions (mainly from other students). And it will be valued
+the knowledge of the material, the organization, the clarity of the
+explanations, the impact of graphs and slides, the timing, etc.
 
-Deliverable consist of the PPT of the exposition, the analysis in Rmd/python and a report with the explanations (HTML or pdf).
+Deliverable consist of the PPT of the exposition, the analysis in
+Rmd/python and a report with the explanations (HTML or pdf).
 
 # Environment
+## Load libraries
 
-```{r}
+```{r, warning=FALSE, message=FALSE}
 library(tidyverse)
 library(igraph)
 ```
 
-# Load data
+## Load data
 
-```{r}
+```{r, warning=FALSE, message=FALSE}
 data_music <- read_csv('data/full_music_data.csv')
 data_influence <- read_csv('data/influence_data.csv')
 data_artist <- read_csv('data/data_by_artist.csv')
 ```
 
-```{r}
-head(sort(table(data_music['artist_names']), decreasing =FALSE), 5)
-```
-
+Reformat `soungs` data.frame
 
 ```{r}
 data_music %>% 
@@ -57,7 +71,7 @@ table(unlist(unique_c) %in% unlist(unique_a))
 unknown_artist <- unique_c[!(unlist(unique_c) %in% unlist(unique_a)),]
 ```
 
-Create the graph
+## Create the graph
 
 ```{r}
 data_influence_edges <- data_influence %>% 
@@ -72,7 +86,6 @@ data_artist_vertices <- data_artist %>%
 g <- graph_from_data_frame(d=data_influence_edges, vertices=data_artist_vertices, directed=TRUE) 
 ```
 
-
 ```{r}
 # https://stackoverflow.com/questions/44892923/how-to-increase-length-of-edges-when-plotting-a-graph-in-r
 # https://stackoverflow.com/questions/32012080/changing-the-spacing-between-vertices-in-igraph-in-r
@@ -81,23 +94,27 @@ g <- graph_from_data_frame(d=data_influence_edges, vertices=data_artist_vertices
 # plot(g)
 ```
 
+# EDA
+## Filter
+
 Remove vertices
-https://stackoverflow.com/questions/29784095/conditional-removing-of-vertices-based-on-attributes-in-r
-https://stackoverflow.com/questions/53696798/filter-igraph-object-by-vertex-attribute-value
+<https://stackoverflow.com/questions/29784095/conditional-removing-of-vertices-based-on-attributes-in-r>
+<https://stackoverflow.com/questions/53696798/filter-igraph-object-by-vertex-attribute-value>
 
 From
-https://stackoverflow.com/questions/3305669/how-do-i-find-the-edges-of-a-vertex-using-igraph-and-r
+<https://stackoverflow.com/questions/3305669/how-do-i-find-the-edges-of-a-vertex-using-igraph-and-r>
 
 ```{r}
 # g1 <- delete_vertices(g, V(g)$danceability >= 0.9)
 
 g1 <- induced_subgraph(g, V(g)$danceability >= 0.85)
 g1 <- induced_subgraph(g, V(g)$tempo >= 180)
+# plot(g1)
 ```
 
 Remove edges
-https://stackoverflow.com/questions/25413633/igraph-in-r-how-to-select-edges-based-on-incident-vertex-attributes
-https://igraph.org/r/doc/subgraph.html
+<https://stackoverflow.com/questions/25413633/igraph-in-r-how-to-select-edges-based-on-incident-vertex-attributes>
+<https://igraph.org/r/doc/subgraph.html>
 
 ```{r}
 # Nat King Cole	 
@@ -105,10 +122,10 @@ filter_idx <- match("Madonna", V(g)$name)
 filter_edges <- as.numeric(E(g)[from(filter_idx)])
 g1 <- subgraph.edges(g, filter_edges, delete.vertices = TRUE)
                        
-plot(g1)
+# plot(g1)
 ```
 
-Topology-Ego Filter
+### Topology-Ego Filter
 https://stackoverflow.com/a/39992337/3780957
 
 ```{r}
@@ -118,15 +135,187 @@ g_ego <- g_ego[[1]]
 plot(g_ego, edge.arrow.size=.2)
 ```
 
+# Description
+
+## Order (number of vertices)
+https://igraph.org/r/doc/gorder.html
+
+```{r}
+gorder(g)
+```
+
+## Size of the graph (number of edges)
+https://igraph.org/r/doc/gsize.html
+
+```{r}
+gsize(g)
+```
+
+## Degree distribution
+
+```{r}
+deg <- degree(g, mode="all", loop=FALSE)
+hist(deg, main='Total degree distribution')
+```
+
+## Degree description
+
+```{r}
+summary(deg)
+```
+
+## Network Diameter and Average Path Length
+
+```{r}
+diameter(g)
+```
+
+## Average path length of the graph
+
+```{r}
+mean_distance(g)
+```
+
+## Centrality Measurements
+
+In the case of `closeness`, there is a *warning* while having a disconnected graph: \
+`closeness centrality is not well-defined for disconnected graphs`\
+This can be saved, by finding the biggest subgraph, and only calculate the `closeness` of that.
+
+```{r}
+# https://stackoverflow.com/a/55891333/3780957
+g_components <- components(g, mode="strong")
+
+biggest_component <- which.max(g_components$csize)
+g_main <- induced_subgraph(g, which(g_components$membership == biggest_component))
+cl <- closeness(g_main, normalized=TRUE)
+head(sort(cl, decreasing=TRUE), 5)
+```
+
+To follow the class exercise, the following line ignores for the `closeness` the `warning`, and executes the code for the full graph.
+
+```{r}
+dg <- degree(g, mode = "total", loop=FALSE, normalized=TRUE)
+bt <- betweenness(g, normalized=TRUE)
+cl <- closeness(g, normalized=TRUE)
+
+cat('Degree\n')
+head(sort(dg, decreasing=TRUE), 5)
+
+cat('\n\nBetweenness\n')
+head(sort(bt, decreasing=TRUE), 5)
+
+cat('\n\nCloseness\n')
+head(sort(cl, decreasing=TRUE), 5)
+```
+
+### Correlation
+
+The following plot, checks the correlation between the tree calculated centrality measures: \
+- Degree \
+- Betweenness \
+- Closeness \
+There is a slight posirive correlation of `0.39` between `degree` and `betweenness`.\
+The values of the metrics are not normalized neither scaled.
+
+```{r}
+library("PerformanceAnalytics")
+results <- data.frame(Degree=dg, Betweenness=bt, Closeness=cl) 
+chart.Correlation(results, histogram=TRUE, pch=19)
+```
+
+### Top `Betweenness`
+
+List of artists with the largest `betweenness` centrality. 
+
+```{r}
+top_betweenness <- head(sort(bt, decreasing=TRUE), 10)
+
+data_artist_vertices$bt <- bt
+
+data_artist_vertices %>% 
+  filter(`name` %in% names(top_betweenness)) %>% 
+  select(`name`, `popularity`, `count`) %>% 
+  arrange(factor(`name`, levels = names(top_betweenness))) %>% 
+  rename(`Artist name` = `name`, `Popularity` = `popularity`, `Number of songs` = `count`)
+```
+
+# Comunity detection
+Using https://igraph.org/r/doc/cluster_louvain.html \
+More details at https://en.wikipedia.org/wiki/Louvain_method
+\
+The different methods for finding communities, they all return a communities object: `cluster_edge_betweenness`, `cluster_fast_greedy`, `cluster_label_prop`, `cluster_leading_eigen`, `cluster_louvain`, `cluster_optimal`, `cluster_spinglass`, `cluster_walktrap.`
+
+```{r}
+# Communities can only be calculated for undirected graphs
+g_undirected <- as.undirected(g, mode='collapse', edge.attr.comb="min")
+
+# Calculate the weight, using the distance in years between the follower and influencer
+E(g_undirected)$weight = E(g_undirected)$follower_active_start - E(g_undirected)$influencer_active_start
+
+g_communities <- cluster_louvain(g_undirected, weights=E(g_undirected)$influencer_active_start)
+```
+
+`modularity` measures how good the division is, or how separated are the different vertex types from each other.
+
+```{r}
+modularity(g_communities)
+```
+
+Calculates the `modularity` of a graph with respect to the given `membership` vector.
+
+```{r}
+modularity(g_communities, membership(g_communities))
+```
+
+Number of communities
+
+```{r}
+length(g_communities)
+```
+
+Number of edges inside a community
+
+```{r}
+hist(sizes(g_communities), main='Number of actors inside a community', xlab='Members')
+```
+
+Length per `community`
+
+```{r}
+x <- sapply(g_communities[], length)
+summary(x)
+which.max(x)
+```
+
+## Validation if the vertex labels per community makes sense
+
+```{r}
+g_communities[]$`93`
+```
+
+#Predict edges based on a hierarchical random graph model
+
+https://igraph.org/r/doc/predict_edges.html
+
+Based on a smaller graph, centered in 'Enrique Iglesias'.
+
+```{r}
+g_ego <- make_ego_graph(g, order = 1, nodes = 'Enrique Iglesias', mode = "all", mindist = 0)
+g_ego <- g_ego[[1]]
+plot(g_ego, edge.arrow.size=.2)
+```
 
 
+```{r}
+hrg <- fit_hrg(g_ego)
+hrg
+```
 
+```{r}
+g_ego_predicted <- predict_edges(g_ego, hrg=hrg)
+```
 
+Ideas
 
-
-
-
-
-
-
-
+<https://github.com/jdwilson4/Network-Analysis-I/blob/master/Code/Descriptive_Analysis.R>
