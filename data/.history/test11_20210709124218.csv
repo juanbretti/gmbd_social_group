@@ -44,7 +44,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 5953,Alice Cooper,Pop/Rock,1960,1098,Soundgarden,Pop/Rock,1980
 12654,Spinal Tap,Comedy/Spoken,1980,1098,Soundgarden,Pop/Rock,1980
 59537,Blue Cheer,Pop/Rock,1960,1098,Soundgarden,Pop/Rock,1980
-61938,Blue ï¿½?yster Cult,Pop/Rock,1960,1098,Soundgarden,Pop/Rock,1980
+61938,Blue Ã?yster Cult,Pop/Rock,1960,1098,Soundgarden,Pop/Rock,1980
 75264,Bad Brains,Pop/Rock,1970,1098,Soundgarden,Pop/Rock,1980
 81493,Killing Joke,Pop/Rock,1970,1098,Soundgarden,Pop/Rock,1980
 84209,Kiss,Pop/Rock,1970,1098,Soundgarden,Pop/Rock,1980
@@ -307,7 +307,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 894465,The Rolling Stones,Pop/Rock,1960,5953,Alice Cooper,Pop/Rock,1960
 6334,Tony Bennett,Vocal,1940,5980,Paolo Conte,Vocal,1970
 66915,Bob Dylan,Pop/Rock,1960,5980,Paolo Conte,Vocal,1970
-150629,ï¿½?dith Piaf,Vocal,1930,5980,Paolo Conte,Vocal,1970
+150629,Ã?dith Piaf,Vocal,1930,5980,Paolo Conte,Vocal,1970
 695189,Yves Montand,Vocal,1940,5980,Paolo Conte,Vocal,1970
 792507,Frank Sinatra,Vocal,1930,5980,Paolo Conte,Vocal,1970
 804476,Charles Aznavour,Vocal,1930,5980,Paolo Conte,Vocal,1970
@@ -453,7 +453,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 883318,Red Hot Chili Peppers,Pop/Rock,1980,7731,Papa Roach,Pop/Rock,1990
 1098,Soundgarden,Pop/Rock,1980,7920,Alice in Chains,Pop/Rock,1980
 5953,Alice Cooper,Pop/Rock,1960,7920,Alice in Chains,Pop/Rock,1980
-61938,Blue ï¿½?yster Cult,Pop/Rock,1960,7920,Alice in Chains,Pop/Rock,1980
+61938,Blue Ã?yster Cult,Pop/Rock,1960,7920,Alice in Chains,Pop/Rock,1980
 84209,Kiss,Pop/Rock,1970,7920,Alice in Chains,Pop/Rock,1980
 105422,Corrosion of Conformity,Pop/Rock,1980,7920,Alice in Chains,Pop/Rock,1980
 114342,The Doors,Pop/Rock,1960,7920,Alice in Chains,Pop/Rock,1980
@@ -563,7 +563,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 100160,The Kinks,Pop/Rock,1960,9084,Sparks,Pop/Rock,1970
 121590,Jacques Brel,Vocal,1950,9084,Sparks,Pop/Rock,1970
 138699,Frank Zappa,Pop/Rock,1950,9084,Sparks,Pop/Rock,1970
-150629,ï¿½?dith Piaf,Vocal,1930,9084,Sparks,Pop/Rock,1970
+150629,Ã?dith Piaf,Vocal,1930,9084,Sparks,Pop/Rock,1970
 253142,Scott Walker,Pop/Rock,1950,9084,Sparks,Pop/Rock,1970
 754032,The Beatles,Pop/Rock,1960,9084,Sparks,Pop/Rock,1970
 840402,The Velvet Underground,Pop/Rock,1960,9084,Sparks,Pop/Rock,1970
@@ -1136,7 +1136,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 790988,Toots & the Maytals,Reggae,1960,16944,Alpha Blondy,Reggae,1980
 836312,Junior Murvin,Reggae,1960,16944,Alpha Blondy,Reggae,1980
 12654,Spinal Tap,Comedy/Spoken,1980,17021,Tenacious D,Pop/Rock,1990
-61938,Blue ï¿½?yster Cult,Pop/Rock,1960,17021,Tenacious D,Pop/Rock,1990
+61938,Blue Ã?yster Cult,Pop/Rock,1960,17021,Tenacious D,Pop/Rock,1990
 98465,Iron Maiden,Pop/Rock,1970,17021,Tenacious D,Pop/Rock,1990
 106298,Cheech & Chong,Comedy/Spoken,1970,17021,Tenacious D,Pop/Rock,1990
 138699,Frank Zappa,Pop/Rock,1950,17021,Tenacious D,Pop/Rock,1990
@@ -2034,7 +2034,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 809999,UFO,Pop/Rock,1960,29808,Tesla,Pop/Rock,1980
 894465,The Rolling Stones,Pop/Rock,1960,29808,Tesla,Pop/Rock,1980
 79016,Billie Holiday,Vocal,1930,29867,Shirley Bassey,Vocal,1950
-150629,ï¿½?dith Piaf,Vocal,1930,29867,Shirley Bassey,Vocal,1950
+150629,Ã?dith Piaf,Vocal,1930,29867,Shirley Bassey,Vocal,1950
 256349,Peggy Lee,Vocal,1940,29867,Shirley Bassey,Vocal,1950
 260038,Dinah Washington,Vocal,1940,29867,Shirley Bassey,Vocal,1950
 322027,Nelson Riddle,Easy Listening,1940,29867,Shirley Bassey,Vocal,1950
@@ -2564,7 +2564,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 44764,Blondie,Pop/Rock,1970,36521,Smashing Pumpkins,Pop/Rock,1980
 51992,Big Star,Pop/Rock,1970,36521,Smashing Pumpkins,Pop/Rock,1980
 61172,The Cars,Pop/Rock,1970,36521,Smashing Pumpkins,Pop/Rock,1980
-61938,Blue ï¿½?yster Cult,Pop/Rock,1960,36521,Smashing Pumpkins,Pop/Rock,1980
+61938,Blue Ã?yster Cult,Pop/Rock,1960,36521,Smashing Pumpkins,Pop/Rock,1980
 79960,Boston,Pop/Rock,1970,36521,Smashing Pumpkins,Pop/Rock,1980
 105354,Cheap Trick,Pop/Rock,1970,36521,Smashing Pumpkins,Pop/Rock,1980
 137390,The Cure,Pop/Rock,1970,36521,Smashing Pumpkins,Pop/Rock,1980
@@ -2616,7 +2616,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 183867,John Cage,Classical,1930,37658,Steve Reich,Classical,1960
 556242,Hamza el Din,International,1960,37658,Steve Reich,Classical,1960
 38490,The Band,Pop/Rock,1960,37730,Pearl Jam,Pop/Rock,1990
-61938,Blue ï¿½?yster Cult,Pop/Rock,1960,37730,Pearl Jam,Pop/Rock,1990
+61938,Blue Ã?yster Cult,Pop/Rock,1960,37730,Pearl Jam,Pop/Rock,1990
 75100,Bad Company,Pop/Rock,1970,37730,Pearl Jam,Pop/Rock,1990
 84209,Kiss,Pop/Rock,1970,37730,Pearl Jam,Pop/Rock,1990
 112462,Cream,Pop/Rock,1960,37730,Pearl Jam,Pop/Rock,1990
@@ -4217,23 +4217,23 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 604852,Aerosmith,Pop/Rock,1970,61792,Babylon A.D.,Pop/Rock,1980
 809999,UFO,Pop/Rock,1960,61792,Babylon A.D.,Pop/Rock,1980
 487271,Mike Seeger,Folk,1950,61912,Bill Evans,Country,1990
-22928,Steppenwolf,Pop/Rock,1960,61938,Blue ï¿½?yster Cult,Pop/Rock,1960
-114342,The Doors,Pop/Rock,1960,61938,Blue ï¿½?yster Cult,Pop/Rock,1960
-139026,Led Zeppelin,Pop/Rock,1960,61938,Blue ï¿½?yster Cult,Pop/Rock,1960
-182598,MC5,Pop/Rock,1960,61938,Blue ï¿½?yster Cult,Pop/Rock,1960
-192382,Deep Purple,Pop/Rock,1960,61938,Blue ï¿½?yster Cult,Pop/Rock,1960
-240865,Jeff Beck,Pop/Rock,1960,61938,Blue ï¿½?yster Cult,Pop/Rock,1960
-346336,Pink Floyd,Pop/Rock,1960,61938,Blue ï¿½?yster Cult,Pop/Rock,1960
-354105,Jimi Hendrix,Pop/Rock,1960,61938,Blue ï¿½?yster Cult,Pop/Rock,1960
-404434,The Moody Blues,Pop/Rock,1960,61938,Blue ï¿½?yster Cult,Pop/Rock,1960
-489303,The Yardbirds,Pop/Rock,1960,61938,Blue ï¿½?yster Cult,Pop/Rock,1960
-489676,The Pretty Things,Pop/Rock,1960,61938,Blue ï¿½?yster Cult,Pop/Rock,1960
-577627,The Who,Pop/Rock,1960,61938,Blue ï¿½?yster Cult,Pop/Rock,1960
-631774,The Byrds,Pop/Rock,1960,61938,Blue ï¿½?yster Cult,Pop/Rock,1960
-754032,The Beatles,Pop/Rock,1960,61938,Blue ï¿½?yster Cult,Pop/Rock,1960
-771438,Black Sabbath,Pop/Rock,1960,61938,Blue ï¿½?yster Cult,Pop/Rock,1960
-840402,The Velvet Underground,Pop/Rock,1960,61938,Blue ï¿½?yster Cult,Pop/Rock,1960
-894465,The Rolling Stones,Pop/Rock,1960,61938,Blue ï¿½?yster Cult,Pop/Rock,1960
+22928,Steppenwolf,Pop/Rock,1960,61938,Blue Ã?yster Cult,Pop/Rock,1960
+114342,The Doors,Pop/Rock,1960,61938,Blue Ã?yster Cult,Pop/Rock,1960
+139026,Led Zeppelin,Pop/Rock,1960,61938,Blue Ã?yster Cult,Pop/Rock,1960
+182598,MC5,Pop/Rock,1960,61938,Blue Ã?yster Cult,Pop/Rock,1960
+192382,Deep Purple,Pop/Rock,1960,61938,Blue Ã?yster Cult,Pop/Rock,1960
+240865,Jeff Beck,Pop/Rock,1960,61938,Blue Ã?yster Cult,Pop/Rock,1960
+346336,Pink Floyd,Pop/Rock,1960,61938,Blue Ã?yster Cult,Pop/Rock,1960
+354105,Jimi Hendrix,Pop/Rock,1960,61938,Blue Ã?yster Cult,Pop/Rock,1960
+404434,The Moody Blues,Pop/Rock,1960,61938,Blue Ã?yster Cult,Pop/Rock,1960
+489303,The Yardbirds,Pop/Rock,1960,61938,Blue Ã?yster Cult,Pop/Rock,1960
+489676,The Pretty Things,Pop/Rock,1960,61938,Blue Ã?yster Cult,Pop/Rock,1960
+577627,The Who,Pop/Rock,1960,61938,Blue Ã?yster Cult,Pop/Rock,1960
+631774,The Byrds,Pop/Rock,1960,61938,Blue Ã?yster Cult,Pop/Rock,1960
+754032,The Beatles,Pop/Rock,1960,61938,Blue Ã?yster Cult,Pop/Rock,1960
+771438,Black Sabbath,Pop/Rock,1960,61938,Blue Ã?yster Cult,Pop/Rock,1960
+840402,The Velvet Underground,Pop/Rock,1960,61938,Blue Ã?yster Cult,Pop/Rock,1960
+894465,The Rolling Stones,Pop/Rock,1960,61938,Blue Ã?yster Cult,Pop/Rock,1960
 120521,Chuck Berry,Pop/Rock,1950,62002,Bachman-Turner Overdrive,Pop/Rock,1970
 131627,Creedence Clearwater Revival,Pop/Rock,1960,62002,Bachman-Turner Overdrive,Pop/Rock,1970
 332141,Jerry Lee Lewis,Pop/Rock,1950,62002,Bachman-Turner Overdrive,Pop/Rock,1970
@@ -4454,7 +4454,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 824022,Little Richard,Pop/Rock,1950,66915,Bob Dylan,Pop/Rock,1960
 888730,Odetta,Folk,1940,66915,Bob Dylan,Pop/Rock,1960
 898336,Mississippi Sheiks,Blues,1930,66915,Bob Dylan,Pop/Rock,1960
-310789,SeÃ¡n ï¿½? Riada,International,1950,67406,The Chieftains,International,1960
+310789,SeÃ¡n Ã? Riada,International,1950,67406,The Chieftains,International,1960
 607283,Tito Puente,Latin,1940,67406,The Chieftains,International,1960
 781094,The Clancy Brothers,International,1950,67406,The Chieftains,International,1960
 94210,Chet Baker,Jazz,1950,67528,Bob Dorough,Vocal,1950
@@ -6939,7 +6939,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 840402,The Velvet Underground,Pop/Rock,1960,104714,Kraftwerk,Electronic,1970
 924232,Sun Ra,Jazz,1940,104714,Kraftwerk,Electronic,1970
 5953,Alice Cooper,Pop/Rock,1960,105030,Coheed and Cambria,Pop/Rock,2000
-61938,Blue ï¿½?yster Cult,Pop/Rock,1960,105030,Coheed and Cambria,Pop/Rock,2000
+61938,Blue Ã?yster Cult,Pop/Rock,1960,105030,Coheed and Cambria,Pop/Rock,2000
 75264,Bad Brains,Pop/Rock,1970,105030,Coheed and Cambria,Pop/Rock,2000
 76057,King Crimson,Pop/Rock,1960,105030,Coheed and Cambria,Pop/Rock,2000
 98465,Iron Maiden,Pop/Rock,1970,105030,Coheed and Cambria,Pop/Rock,2000
@@ -7210,7 +7210,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 895136,Pixies,Pop/Rock,1980,109414,Courtney Love,Pop/Rock,1980
 936190,Stevie Nicks,Pop/Rock,1960,109414,Courtney Love,Pop/Rock,1980
 5441,Pantera,Pop/Rock,1980,109421,Crowbar,Pop/Rock,1980
-61938,Blue ï¿½?yster Cult,Pop/Rock,1960,109421,Crowbar,Pop/Rock,1980
+61938,Blue Ã?yster Cult,Pop/Rock,1960,109421,Crowbar,Pop/Rock,1980
 91650,Black Flag,Pop/Rock,1970,109421,Crowbar,Pop/Rock,1980
 98465,Iron Maiden,Pop/Rock,1970,109421,Crowbar,Pop/Rock,1980
 105422,Corrosion of Conformity,Pop/Rock,1980,109421,Crowbar,Pop/Rock,1980
@@ -7756,7 +7756,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 617196,Brian Eno,Pop/Rock,1970,121584,Laraaji,New Age,1970
 809334,Jan Garbarek,Jazz,1960,121584,Laraaji,New Age,1970
 66915,Bob Dylan,Pop/Rock,1960,121590,Jacques Brel,Vocal,1950
-150629,ï¿½?dith Piaf,Vocal,1930,121590,Jacques Brel,Vocal,1950
+150629,Ã?dith Piaf,Vocal,1930,121590,Jacques Brel,Vocal,1950
 197532,Charles TrÃ©net,Vocal,1930,121590,Jacques Brel,Vocal,1950
 804476,Charles Aznavour,Vocal,1930,121590,Jacques Brel,Vocal,1950
 131650,Talking Heads,Pop/Rock,1970,121746,Cornershop,Pop/Rock,1990
@@ -7809,7 +7809,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 44764,Blondie,Pop/Rock,1970,122754,Cyndi Lauper,Pop/Rock,1970
 53739,Bette Midler,Vocal,1970,122754,Cyndi Lauper,Pop/Rock,1970
 79016,Billie Holiday,Vocal,1930,122754,Cyndi Lauper,Pop/Rock,1970
-150629,ï¿½?dith Piaf,Vocal,1930,122754,Cyndi Lauper,Pop/Rock,1970
+150629,Ã?dith Piaf,Vocal,1930,122754,Cyndi Lauper,Pop/Rock,1970
 165011,Dionne Warwick,R&B;,1960,122754,Cyndi Lauper,Pop/Rock,1970
 184502,Ella Fitzgerald,Vocal,1930,122754,Cyndi Lauper,Pop/Rock,1970
 200882,Gene Pitney,Pop/Rock,1960,122754,Cyndi Lauper,Pop/Rock,1970
@@ -9059,7 +9059,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 271029,Esther Phillips,R&B;,1940,139933,Frankie Lymon,R&B;,1950
 792507,Frank Sinatra,Vocal,1930,140176,Eddie Fisher,Vocal,1940
 104714,Kraftwerk,Electronic,1970,140499,Cocteau Twins,Pop/Rock,1970
-150629,ï¿½?dith Piaf,Vocal,1930,140499,Cocteau Twins,Pop/Rock,1970
+150629,Ã?dith Piaf,Vocal,1930,140499,Cocteau Twins,Pop/Rock,1970
 196969,John Martyn,Folk,1960,140499,Cocteau Twins,Pop/Rock,1970
 224638,John Cale,Pop/Rock,1960,140499,Cocteau Twins,Pop/Rock,1970
 238440,Robert Fripp,Pop/Rock,1960,140499,Cocteau Twins,Pop/Rock,1970
@@ -9239,7 +9239,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 840000,Vangelis,Electronic,1960,143490,Cusco,New Age,2000
 154533,Ewan MacColl,Folk,1940,143494,The Dubliners,International,1960
 266160,Pete Seeger,Folk,1930,143494,The Dubliners,International,1960
-61938,Blue ï¿½?yster Cult,Pop/Rock,1960,143749,fIREHOSE,Pop/Rock,1980
+61938,Blue Ã?yster Cult,Pop/Rock,1960,143749,fIREHOSE,Pop/Rock,1980
 66915,Bob Dylan,Pop/Rock,1960,143749,fIREHOSE,Pop/Rock,1980
 131627,Creedence Clearwater Revival,Pop/Rock,1960,143749,fIREHOSE,Pop/Rock,1980
 379125,Neil Young,Pop/Rock,1960,143749,fIREHOSE,Pop/Rock,1980
@@ -9546,7 +9546,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 416785,Nino Rota,Stage & Screen,1950,150530,James Horner,Stage & Screen,1970
 678009,Henry Mancini,Easy Listening,1940,150530,James Horner,Stage & Screen,1970
 760240,Bernard Herrmann,Stage & Screen,1930,150530,James Horner,Stage & Screen,1970
-197532,Charles TrÃ©net,Vocal,1930,150629,ï¿½?dith Piaf,Vocal,1930
+197532,Charles TrÃ©net,Vocal,1930,150629,Ã?dith Piaf,Vocal,1930
 68780,Kenny Burrell,Jazz,1950,151240,Earl Klugh,Jazz,1970
 94205,Chet Atkins,Country,1940,151240,Earl Klugh,Jazz,1970
 184187,Gabor Szabo,Jazz,1960,151240,Earl Klugh,Jazz,1970
@@ -9611,7 +9611,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 899530,The Smiths,Pop/Rock,1980,151504,Bayside,Pop/Rock,2000
 41874,The Beach Boys,Pop/Rock,1960,151549,Belinda Carlisle,Pop/Rock,1980
 44764,Blondie,Pop/Rock,1970,151549,Belinda Carlisle,Pop/Rock,1980
-150629,ï¿½?dith Piaf,Vocal,1930,151549,Belinda Carlisle,Pop/Rock,1980
+150629,Ã?dith Piaf,Vocal,1930,151549,Belinda Carlisle,Pop/Rock,1980
 186594,FranÃ§oise Hardy,Pop/Rock,1960,151549,Belinda Carlisle,Pop/Rock,1980
 418955,The Shangri-Las,Pop/Rock,1960,151549,Belinda Carlisle,Pop/Rock,1980
 491220,The Ronettes,Pop/Rock,1950,151549,Belinda Carlisle,Pop/Rock,1980
@@ -10214,7 +10214,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 92942,Chic,R&B;,1970,161920,Grace Jones,R&B;,1970
 118289,Labelle,R&B;,1970,161920,Grace Jones,R&B;,1970
 149044,Barry White,R&B;,1960,161920,Grace Jones,R&B;,1970
-150629,ï¿½?dith Piaf,Vocal,1930,161920,Grace Jones,R&B;,1970
+150629,Ã?dith Piaf,Vocal,1930,161920,Grace Jones,R&B;,1970
 160848,Gregory Isaacs,Reggae,1970,161920,Grace Jones,R&B;,1970
 247966,Julie London,Vocal,1940,161920,Grace Jones,R&B;,1970
 256349,Peggy Lee,Vocal,1940,161920,Grace Jones,R&B;,1970
@@ -10552,7 +10552,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 946137,Canned Heat,Pop/Rock,1960,165652,Eagles of Death Metal,Pop/Rock,1990
 5882,T. Rex,Pop/Rock,1960,165663,Twisted Sister,Pop/Rock,1970
 5953,Alice Cooper,Pop/Rock,1960,165663,Twisted Sister,Pop/Rock,1970
-61938,Blue ï¿½?yster Cult,Pop/Rock,1960,165663,Twisted Sister,Pop/Rock,1970
+61938,Blue Ã?yster Cult,Pop/Rock,1960,165663,Twisted Sister,Pop/Rock,1970
 84209,Kiss,Pop/Rock,1970,165663,Twisted Sister,Pop/Rock,1970
 139026,Led Zeppelin,Pop/Rock,1960,165663,Twisted Sister,Pop/Rock,1970
 192382,Deep Purple,Pop/Rock,1960,165663,Twisted Sister,Pop/Rock,1970
@@ -10625,7 +10625,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 821571,Smokey Robinson,R&B;,1950,166291,Eagle-Eye Cherry,Pop/Rock,1990
 947563,Gin Blossoms,Pop/Rock,1980,166291,Eagle-Eye Cherry,Pop/Rock,1990
 137474,Laura Nyro,Pop/Rock,1960,166505,Feist,Pop/Rock,1990
-150629,ï¿½?dith Piaf,Vocal,1930,166505,Feist,Pop/Rock,1990
+150629,Ã?dith Piaf,Vocal,1930,166505,Feist,Pop/Rock,1990
 162233,Fairport Convention,Pop/Rock,1960,166505,Feist,Pop/Rock,1990
 169795,Fiona Apple,Pop/Rock,1990,166505,Feist,Pop/Rock,1990
 216846,Jane Birkin,Pop/Rock,1960,166505,Feist,Pop/Rock,1990
@@ -11207,7 +11207,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 958768,World Party,Pop/Rock,1980,174752,Eels,Pop/Rock,1990
 66915,Bob Dylan,Pop/Rock,1960,174822,Serge Gainsbourg,Pop/Rock,1950
 121590,Jacques Brel,Vocal,1950,174822,Serge Gainsbourg,Pop/Rock,1950
-150629,ï¿½?dith Piaf,Vocal,1930,174822,Serge Gainsbourg,Pop/Rock,1950
+150629,Ã?dith Piaf,Vocal,1930,174822,Serge Gainsbourg,Pop/Rock,1950
 237517,Lee Hazlewood,Country,1960,174822,Serge Gainsbourg,Pop/Rock,1950
 792507,Frank Sinatra,Vocal,1930,174822,Serge Gainsbourg,Pop/Rock,1950
 847735,Marlene Dietrich,Vocal,1930,174822,Serge Gainsbourg,Pop/Rock,1950
@@ -12140,7 +12140,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 98081,Engelbert Humperdinck,Vocal,1950,186185,CÃ©line Dion,Pop/Rock,1980
 107090,Cher,Pop/Rock,1960,186185,CÃ©line Dion,Pop/Rock,1980
 130028,Freddie Mercury,Pop/Rock,1970,186185,CÃ©line Dion,Pop/Rock,1980
-150629,ï¿½?dith Piaf,Vocal,1930,186185,CÃ©line Dion,Pop/Rock,1980
+150629,Ã?dith Piaf,Vocal,1930,186185,CÃ©line Dion,Pop/Rock,1980
 174557,Carole King,Pop/Rock,1950,186185,CÃ©line Dion,Pop/Rock,1980
 273531,Liza Minnelli,Vocal,1940,186185,CÃ©line Dion,Pop/Rock,1980
 294923,Judy Collins,Folk,1950,186185,CÃ©line Dion,Pop/Rock,1980
@@ -12170,7 +12170,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 772745,Incubus,Pop/Rock,1990,186440,Deadsy,Pop/Rock,1990
 91650,Black Flag,Pop/Rock,1970,186481,Dos,Pop/Rock,1980
 66915,Bob Dylan,Pop/Rock,1960,186594,FranÃ§oise Hardy,Pop/Rock,1960
-150629,ï¿½?dith Piaf,Vocal,1930,186594,FranÃ§oise Hardy,Pop/Rock,1960
+150629,Ã?dith Piaf,Vocal,1930,186594,FranÃ§oise Hardy,Pop/Rock,1960
 325401,Petula Clark,Pop/Rock,1930,186594,FranÃ§oise Hardy,Pop/Rock,1960
 695189,Yves Montand,Vocal,1940,186594,FranÃ§oise Hardy,Pop/Rock,1960
 804476,Charles Aznavour,Vocal,1930,186594,FranÃ§oise Hardy,Pop/Rock,1960
@@ -12601,7 +12601,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 71209,Leonard Cohen,Pop/Rock,1950,193594,Madeleine Peyroux,Vocal,1990
 79016,Billie Holiday,Vocal,1930,193594,Madeleine Peyroux,Vocal,1990
 118664,Basia,Pop/Rock,1980,193594,Madeleine Peyroux,Vocal,1990
-150629,ï¿½?dith Piaf,Vocal,1930,193594,Madeleine Peyroux,Vocal,1990
+150629,Ã?dith Piaf,Vocal,1930,193594,Madeleine Peyroux,Vocal,1990
 162930,Eartha Kitt,Vocal,1940,193594,Madeleine Peyroux,Vocal,1990
 170815,Fred Neil,Folk,1960,193594,Madeleine Peyroux,Vocal,1990
 174822,Serge Gainsbourg,Pop/Rock,1950,193594,Madeleine Peyroux,Vocal,1990
@@ -12724,15 +12724,15 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 746010,Spirit,Pop/Rock,1960,195305,Focus,Pop/Rock,1960
 753685,Soft Machine,Pop/Rock,1960,195305,Focus,Pop/Rock,1960
 754032,The Beatles,Pop/Rock,1960,195305,Focus,Pop/Rock,1960
-16448,AmÃ¡lia Rodrigues,International,1940,195373,CesÃ¡ria ï¿½?vora,International,1950
-79016,Billie Holiday,Vocal,1930,195373,CesÃ¡ria ï¿½?vora,International,1950
-150629,ï¿½?dith Piaf,Vocal,1930,195373,CesÃ¡ria ï¿½?vora,International,1950
-639397,Caetano Veloso,Latin,1960,195373,CesÃ¡ria ï¿½?vora,International,1950
-652255,Gilberto Gil,International,1960,195373,CesÃ¡ria ï¿½?vora,International,1950
-781837,AntÃ´nio Carlos Jobim,Latin,1950,195373,CesÃ¡ria ï¿½?vora,International,1950
-785283,JoÃ£o Gilberto,International,1950,195373,CesÃ¡ria ï¿½?vora,International,1950
-903609,Jim Reeves,Country,1930,195373,CesÃ¡ria ï¿½?vora,International,1950
-931086,Astrud Gilberto,Latin,1960,195373,CesÃ¡ria ï¿½?vora,International,1950
+16448,AmÃ¡lia Rodrigues,International,1940,195373,CesÃ¡ria Ã?vora,International,1950
+79016,Billie Holiday,Vocal,1930,195373,CesÃ¡ria Ã?vora,International,1950
+150629,Ã?dith Piaf,Vocal,1930,195373,CesÃ¡ria Ã?vora,International,1950
+639397,Caetano Veloso,Latin,1960,195373,CesÃ¡ria Ã?vora,International,1950
+652255,Gilberto Gil,International,1960,195373,CesÃ¡ria Ã?vora,International,1950
+781837,AntÃ´nio Carlos Jobim,Latin,1950,195373,CesÃ¡ria Ã?vora,International,1950
+785283,JoÃ£o Gilberto,International,1950,195373,CesÃ¡ria Ã?vora,International,1950
+903609,Jim Reeves,Country,1930,195373,CesÃ¡ria Ã?vora,International,1950
+931086,Astrud Gilberto,Latin,1960,195373,CesÃ¡ria Ã?vora,International,1950
 390390,Ohio Players,R&B;,1950,195634,Dazz Band,R&B;,1970
 90188,Ian Dury,Pop/Rock,1970,195874,Madness,Pop/Rock,1970
 100160,The Kinks,Pop/Rock,1960,195874,Madness,Pop/Rock,1970
@@ -13687,7 +13687,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 69153,Joan Baez,Folk,1950,213212,Janis Ian,Pop/Rock,1960
 71209,Leonard Cohen,Pop/Rock,1950,213212,Janis Ian,Pop/Rock,1960
 79016,Billie Holiday,Vocal,1930,213212,Janis Ian,Pop/Rock,1960
-150629,ï¿½?dith Piaf,Vocal,1930,213212,Janis Ian,Pop/Rock,1960
+150629,Ã?dith Piaf,Vocal,1930,213212,Janis Ian,Pop/Rock,1960
 184502,Ella Fitzgerald,Vocal,1930,213212,Janis Ian,Pop/Rock,1960
 231645,Jean Ritchie,Folk,1940,213212,Janis Ian,Pop/Rock,1960
 239859,Leonard Bernstein,Classical,1940,213212,Janis Ian,Pop/Rock,1960
@@ -13847,7 +13847,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 801573,Doris Troy,R&B;,1960,215513,Ciara,R&B;,2000
 1606776,K.P. & Envyi,R&B;,1990,215513,Ciara,R&B;,2000
 121590,Jacques Brel,Vocal,1950,215997,Carla Bruni,Pop/Rock,2000
-150629,ï¿½?dith Piaf,Vocal,1930,215997,Carla Bruni,Pop/Rock,2000
+150629,Ã?dith Piaf,Vocal,1930,215997,Carla Bruni,Pop/Rock,2000
 174822,Serge Gainsbourg,Pop/Rock,1950,215997,Carla Bruni,Pop/Rock,2000
 216846,Jane Birkin,Pop/Rock,1960,215997,Carla Bruni,Pop/Rock,2000
 270491,Joni Mitchell,Pop/Rock,1960,215997,Carla Bruni,Pop/Rock,2000
@@ -13860,7 +13860,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 410219,Merle Haggard,Country,1960,216586,John Conlee,Country,1970
 79016,Billie Holiday,Vocal,1930,216846,Jane Birkin,Pop/Rock,1960
 117064,Connie Francis,Pop/Rock,1950,216846,Jane Birkin,Pop/Rock,1960
-150629,ï¿½?dith Piaf,Vocal,1930,216846,Jane Birkin,Pop/Rock,1960
+150629,Ã?dith Piaf,Vocal,1930,216846,Jane Birkin,Pop/Rock,1960
 197532,Charles TrÃ©net,Vocal,1930,216846,Jane Birkin,Pop/Rock,1960
 208582,Lesley Gore,Pop/Rock,1960,216846,Jane Birkin,Pop/Rock,1960
 256349,Peggy Lee,Vocal,1940,216846,Jane Birkin,Pop/Rock,1960
@@ -15081,7 +15081,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 130028,Freddie Mercury,Pop/Rock,1970,240665,Jeff Buckley,Pop/Rock,1990
 139026,Led Zeppelin,Pop/Rock,1960,240665,Jeff Buckley,Pop/Rock,1990
 140499,Cocteau Twins,Pop/Rock,1970,240665,Jeff Buckley,Pop/Rock,1990
-150629,ï¿½?dith Piaf,Vocal,1930,240665,Jeff Buckley,Pop/Rock,1990
+150629,Ã?dith Piaf,Vocal,1930,240665,Jeff Buckley,Pop/Rock,1990
 170815,Fred Neil,Folk,1960,240665,Jeff Buckley,Pop/Rock,1990
 182598,MC5,Pop/Rock,1960,240665,Jeff Buckley,Pop/Rock,1990
 183139,David Sylvian,Pop/Rock,1970,240665,Jeff Buckley,Pop/Rock,1990
@@ -15723,7 +15723,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 38466,Andy Williams,Vocal,1940,253142,Scott Walker,Pop/Rock,1950
 66915,Bob Dylan,Pop/Rock,1960,253142,Scott Walker,Pop/Rock,1950
 121590,Jacques Brel,Vocal,1950,253142,Scott Walker,Pop/Rock,1950
-150629,ï¿½?dith Piaf,Vocal,1930,253142,Scott Walker,Pop/Rock,1950
+150629,Ã?dith Piaf,Vocal,1930,253142,Scott Walker,Pop/Rock,1950
 411761,Nina Simone,Vocal,1950,253142,Scott Walker,Pop/Rock,1950
 642542,Burt Bacharach,Pop/Rock,1950,253142,Scott Walker,Pop/Rock,1950
 792507,Frank Sinatra,Vocal,1930,253142,Scott Walker,Pop/Rock,1950
@@ -16431,7 +16431,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 837150,Peggy Seeger,Folk,1950,270491,Joni Mitchell,Pop/Rock,1960
 837592,June Christy,Vocal,1930,270491,Joni Mitchell,Pop/Rock,1960
 25462,Tricky,Electronic,1990,270667,Live,Pop/Rock,1990
-61938,Blue ï¿½?yster Cult,Pop/Rock,1960,270667,Live,Pop/Rock,1990
+61938,Blue Ã?yster Cult,Pop/Rock,1960,270667,Live,Pop/Rock,1990
 66915,Bob Dylan,Pop/Rock,1960,270667,Live,Pop/Rock,1990
 112462,Cream,Pop/Rock,1960,270667,Live,Pop/Rock,1990
 114342,The Doors,Pop/Rock,1960,270667,Live,Pop/Rock,1990
@@ -18501,7 +18501,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 899530,The Smiths,Pop/Rock,1980,325357,Arctic Monkeys,Pop/Rock,2000
 918569,The Streets,Electronic,1990,325357,Arctic Monkeys,Pop/Rock,2000
 43499,The Andrews Sisters,Vocal,1930,325401,Petula Clark,Pop/Rock,1930
-150629,ï¿½?dith Piaf,Vocal,1930,325401,Petula Clark,Pop/Rock,1930
+150629,Ã?dith Piaf,Vocal,1930,325401,Petula Clark,Pop/Rock,1930
 189644,Doris Day,Vocal,1930,325401,Petula Clark,Pop/Rock,1930
 256349,Peggy Lee,Vocal,1940,325401,Petula Clark,Pop/Rock,1930
 345734,Rosemary Clooney,Vocal,1940,325401,Petula Clark,Pop/Rock,1930
@@ -19305,7 +19305,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 505532,Tim Hardin,Pop/Rock,1960,345427,Roy Harper,Pop/Rock,1960
 754032,The Beatles,Pop/Rock,1960,345427,Roy Harper,Pop/Rock,1960
 814036,Davy Graham,Folk,1960,345427,Roy Harper,Pop/Rock,1960
-150629,ï¿½?dith Piaf,Vocal,1930,345708,Pink Martini,Pop/Rock,1990
+150629,Ã?dith Piaf,Vocal,1930,345708,Pink Martini,Pop/Rock,1990
 174822,Serge Gainsbourg,Pop/Rock,1950,345708,Pink Martini,Pop/Rock,1990
 181694,Carmen Miranda,Vocal,1930,345708,Pink Martini,Pop/Rock,1990
 197364,David Byrne,Pop/Rock,1970,345708,Pink Martini,Pop/Rock,1990
@@ -20102,7 +20102,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 815575,Lena Horne,Vocal,1930,368367,Nancy Wilson,Vocal,1950
 16448,AmÃ¡lia Rodrigues,International,1940,368451,Nana Mouskouri,Vocal,1950
 79016,Billie Holiday,Vocal,1930,368451,Nana Mouskouri,Vocal,1950
-150629,ï¿½?dith Piaf,Vocal,1930,368451,Nana Mouskouri,Vocal,1950
+150629,Ã?dith Piaf,Vocal,1930,368451,Nana Mouskouri,Vocal,1950
 163835,Manos Hadjidakis,Stage & Screen,1950,368451,Nana Mouskouri,Vocal,1950
 184502,Ella Fitzgerald,Vocal,1930,368451,Nana Mouskouri,Vocal,1950
 378624,Quincy Jones,Jazz,1950,368451,Nana Mouskouri,Vocal,1950
@@ -20233,7 +20233,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 7920,Alice in Chains,Pop/Rock,1980,376422,Queens of the Stone Age,Pop/Rock,1990
 22928,Steppenwolf,Pop/Rock,1960,376422,Queens of the Stone Age,Pop/Rock,1990
 59537,Blue Cheer,Pop/Rock,1960,376422,Queens of the Stone Age,Pop/Rock,1990
-61938,Blue ï¿½?yster Cult,Pop/Rock,1960,376422,Queens of the Stone Age,Pop/Rock,1990
+61938,Blue Ã?yster Cult,Pop/Rock,1960,376422,Queens of the Stone Age,Pop/Rock,1990
 84209,Kiss,Pop/Rock,1970,376422,Queens of the Stone Age,Pop/Rock,1990
 91650,Black Flag,Pop/Rock,1970,376422,Queens of the Stone Age,Pop/Rock,1990
 105422,Corrosion of Conformity,Pop/Rock,1980,376422,Queens of the Stone Age,Pop/Rock,1990
@@ -20433,7 +20433,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 944310,George Jones,Country,1950,381371,Neko Case,Pop/Rock,1990
 21578,Sleep,Pop/Rock,1990,382565,Mastodon,Pop/Rock,1990
 22124,Slayer,Pop/Rock,1980,382565,Mastodon,Pop/Rock,1990
-61938,Blue ï¿½?yster Cult,Pop/Rock,1960,382565,Mastodon,Pop/Rock,1990
+61938,Blue Ã?yster Cult,Pop/Rock,1960,382565,Mastodon,Pop/Rock,1990
 105422,Corrosion of Conformity,Pop/Rock,1980,382565,Mastodon,Pop/Rock,1990
 109421,Crowbar,Pop/Rock,1980,382565,Mastodon,Pop/Rock,1990
 154417,Clutch,Pop/Rock,1990,382565,Mastodon,Pop/Rock,1990
@@ -21851,7 +21851,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 181694,Carmen Miranda,Vocal,1930,443997,Sylvia Telles,Latin,1950
 797205,Elizeth Cardoso,Latin,1950,443997,Sylvia Telles,Latin,1950
 235923,Leif Garrett,Pop/Rock,1960,444140,The Naked Brothers Band,Pop/Rock,2000
-61938,Blue ï¿½?yster Cult,Pop/Rock,1960,446509,Metallica,Pop/Rock,1980
+61938,Blue Ã?yster Cult,Pop/Rock,1960,446509,Metallica,Pop/Rock,1980
 81493,Killing Joke,Pop/Rock,1970,446509,Metallica,Pop/Rock,1980
 98465,Iron Maiden,Pop/Rock,1970,446509,Metallica,Pop/Rock,1980
 139026,Led Zeppelin,Pop/Rock,1960,446509,Metallica,Pop/Rock,1980
@@ -22296,7 +22296,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 899530,The Smiths,Pop/Rock,1980,474150,The National,Pop/Rock,2000
 933809,Tom Verlaine,Pop/Rock,1970,474150,The National,Pop/Rock,2000
 11707,Steely Dan,Pop/Rock,1970,474482,Minutemen,Pop/Rock,1980
-61938,Blue ï¿½?yster Cult,Pop/Rock,1960,474482,Minutemen,Pop/Rock,1980
+61938,Blue Ã?yster Cult,Pop/Rock,1960,474482,Minutemen,Pop/Rock,1980
 75747,The Clash,Pop/Rock,1970,474482,Minutemen,Pop/Rock,1980
 91650,Black Flag,Pop/Rock,1970,474482,Minutemen,Pop/Rock,1980
 131627,Creedence Clearwater Revival,Pop/Rock,1960,474482,Minutemen,Pop/Rock,1980
@@ -23139,7 +23139,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 233066,Lou Reed,Pop/Rock,1950,489876,The Pogues,Pop/Rock,1980
 251361,Dexys Midnight Runners,Pop/Rock,1970,489876,The Pogues,Pop/Rock,1980
 307461,Van Morrison,Pop/Rock,1950,489876,The Pogues,Pop/Rock,1980
-310789,SeÃ¡n ï¿½? Riada,International,1950,489876,The Pogues,Pop/Rock,1980
+310789,SeÃ¡n Ã? Riada,International,1950,489876,The Pogues,Pop/Rock,1980
 337631,Rory Gallagher,Blues,1960,489876,The Pogues,Pop/Rock,1980
 418740,Sex Pistols,Pop/Rock,1970,489876,The Pogues,Pop/Rock,1980
 549797,Hank Williams,Country,1930,489876,The Pogues,Pop/Rock,1980
@@ -23513,7 +23513,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 5953,Alice Cooper,Pop/Rock,1960,495455,Monster Magnet,Pop/Rock,1980
 7920,Alice in Chains,Pop/Rock,1980,495455,Monster Magnet,Pop/Rock,1980
 59537,Blue Cheer,Pop/Rock,1960,495455,Monster Magnet,Pop/Rock,1980
-61938,Blue ï¿½?yster Cult,Pop/Rock,1960,495455,Monster Magnet,Pop/Rock,1980
+61938,Blue Ã?yster Cult,Pop/Rock,1960,495455,Monster Magnet,Pop/Rock,1980
 84209,Kiss,Pop/Rock,1970,495455,Monster Magnet,Pop/Rock,1980
 139026,Led Zeppelin,Pop/Rock,1960,495455,Monster Magnet,Pop/Rock,1980
 182598,MC5,Pop/Rock,1960,495455,Monster Magnet,Pop/Rock,1980
@@ -23695,7 +23695,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 927555,Aretha Franklin,R&B;,1950,500889,Minnie Riperton,R&B;,1960
 5882,T. Rex,Pop/Rock,1960,500992,MÃ¶tley CrÃ¼e,Pop/Rock,1980
 5953,Alice Cooper,Pop/Rock,1960,500992,MÃ¶tley CrÃ¼e,Pop/Rock,1980
-61938,Blue ï¿½?yster Cult,Pop/Rock,1960,500992,MÃ¶tley CrÃ¼e,Pop/Rock,1980
+61938,Blue Ã?yster Cult,Pop/Rock,1960,500992,MÃ¶tley CrÃ¼e,Pop/Rock,1980
 84209,Kiss,Pop/Rock,1970,500992,MÃ¶tley CrÃ¼e,Pop/Rock,1980
 105354,Cheap Trick,Pop/Rock,1970,500992,MÃ¶tley CrÃ¼e,Pop/Rock,1980
 139026,Led Zeppelin,Pop/Rock,1960,500992,MÃ¶tley CrÃ¼e,Pop/Rock,1980
@@ -25757,7 +25757,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 1006765,Rodriguez,Pop/Rock,1960,573391,Paolo Nutini,Pop/Rock,2000
 16448,AmÃ¡lia Rodrigues,International,1940,573410,Maria BethÃ¢nia,International,1960
 79016,Billie Holiday,Vocal,1930,573410,Maria BethÃ¢nia,International,1960
-150629,ï¿½?dith Piaf,Vocal,1930,573410,Maria BethÃ¢nia,International,1960
+150629,Ã?dith Piaf,Vocal,1930,573410,Maria BethÃ¢nia,International,1960
 371530,Nara LeÃ£o,Latin,1960,573410,Maria BethÃ¢nia,International,1960
 781837,AntÃ´nio Carlos Jobim,Latin,1950,573410,Maria BethÃ¢nia,International,1960
 797056,Elis Regina,International,1960,573410,Maria BethÃ¢nia,International,1960
@@ -25844,7 +25844,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 883318,Red Hot Chili Peppers,Pop/Rock,1980,574119,Sugar Ray,Pop/Rock,1990
 11707,Steely Dan,Pop/Rock,1970,574143,moe.,Pop/Rock,1990
 38490,The Band,Pop/Rock,1960,574143,moe.,Pop/Rock,1990
-61938,Blue ï¿½?yster Cult,Pop/Rock,1960,574143,moe.,Pop/Rock,1990
+61938,Blue Ã?yster Cult,Pop/Rock,1960,574143,moe.,Pop/Rock,1990
 66915,Bob Dylan,Pop/Rock,1960,574143,moe.,Pop/Rock,1990
 75747,The Clash,Pop/Rock,1970,574143,moe.,Pop/Rock,1990
 119651,J.J. Cale,Pop/Rock,1950,574143,moe.,Pop/Rock,1990
@@ -26325,7 +26325,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 44764,Blondie,Pop/Rock,1970,585210,The Waitresses,Pop/Rock,1980
 47033,The Blue Nile,Pop/Rock,1980,585249,Annie Lennox,Pop/Rock,1970
 59819,Betty Wright,R&B;,1950,585249,Annie Lennox,Pop/Rock,1970
-150629,ï¿½?dith Piaf,Vocal,1930,585249,Annie Lennox,Pop/Rock,1970
+150629,Ã?dith Piaf,Vocal,1930,585249,Annie Lennox,Pop/Rock,1970
 159214,Dusty Springfield,Pop/Rock,1950,585249,Annie Lennox,Pop/Rock,1970
 234844,Debbie Harry,Pop/Rock,1960,585249,Annie Lennox,Pop/Rock,1970
 270491,Joni Mitchell,Pop/Rock,1960,585249,Annie Lennox,Pop/Rock,1970
@@ -27040,7 +27040,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 467203,Michael Jackson,R&B;,1960,607773,Al B. Sure!,R&B;,1980
 607448,Al Green,R&B;,1960,607773,Al B. Sure!,R&B;,1980
 821571,Smokey Robinson,R&B;,1950,607773,Al B. Sure!,R&B;,1980
-150629,ï¿½?dith Piaf,Vocal,1930,607967,Astor Piazzolla,Latin,1940
+150629,Ã?dith Piaf,Vocal,1930,607967,Astor Piazzolla,Latin,1940
 48908,Betty Carter,Vocal,1940,608135,Mulgrew Miller,Jazz,1980
 110541,Chick Corea,Jazz,1960,608135,Mulgrew Miller,Jazz,1980
 135391,Benny Golson,Jazz,1950,608135,Mulgrew Miller,Jazz,1980
@@ -28046,7 +28046,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 558596,Hampton Hawes,Jazz,1950,634377,David Axelrod,Pop/Rock,1960
 743929,Stan Kenton,Jazz,1930,634377,David Axelrod,Pop/Rock,1960
 781932,Lalo Schifrin,Jazz,1950,634377,David Axelrod,Pop/Rock,1960
-61938,Blue ï¿½?yster Cult,Pop/Rock,1960,634463,CKY,Pop/Rock,1990
+61938,Blue Ã?yster Cult,Pop/Rock,1960,634463,CKY,Pop/Rock,1990
 76057,King Crimson,Pop/Rock,1960,634463,CKY,Pop/Rock,1990
 446509,Metallica,Pop/Rock,1980,634463,CKY,Pop/Rock,1990
 506513,Mr. Bungle,Pop/Rock,1980,634463,CKY,Pop/Rock,1990
@@ -28464,7 +28464,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 66915,Bob Dylan,Pop/Rock,1960,651107,Marianne Faithfull,Pop/Rock,1960
 69153,Joan Baez,Folk,1950,651107,Marianne Faithfull,Pop/Rock,1960
 114342,The Doors,Pop/Rock,1960,651107,Marianne Faithfull,Pop/Rock,1960
-150629,ï¿½?dith Piaf,Vocal,1930,651107,Marianne Faithfull,Pop/Rock,1960
+150629,Ã?dith Piaf,Vocal,1930,651107,Marianne Faithfull,Pop/Rock,1960
 847735,Marlene Dietrich,Vocal,1930,651107,Marianne Faithfull,Pop/Rock,1960
 894465,The Rolling Stones,Pop/Rock,1960,651107,Marianne Faithfull,Pop/Rock,1960
 7448,The Delfonics,R&B;,1960,651156,Guy,R&B;,1980
@@ -30055,7 +30055,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 14651,Patsy Cline,Country,1950,717234,Ane Brun,Pop/Rock,2000
 83859,Kevin Coyne,Pop/Rock,1970,717234,Ane Brun,Pop/Rock,2000
 127360,Everything But the Girl,Pop/Rock,1980,717234,Ane Brun,Pop/Rock,2000
-150629,ï¿½?dith Piaf,Vocal,1930,717234,Ane Brun,Pop/Rock,2000
+150629,Ã?dith Piaf,Vocal,1930,717234,Ane Brun,Pop/Rock,2000
 270491,Joni Mitchell,Pop/Rock,1960,717234,Ane Brun,Pop/Rock,2000
 336783,Nick Drake,Pop/Rock,1960,717234,Ane Brun,Pop/Rock,2000
 758208,Beth Orton,Pop/Rock,1990,717234,Ane Brun,Pop/Rock,2000
@@ -33620,7 +33620,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 34094,The Archies,Pop/Rock,1960,787757,The Dictators,Pop/Rock,1970
 41874,The Beach Boys,Pop/Rock,1960,787757,The Dictators,Pop/Rock,1970
 46120,The Amboy Dukes,Pop/Rock,1960,787757,The Dictators,Pop/Rock,1970
-61938,Blue ï¿½?yster Cult,Pop/Rock,1960,787757,The Dictators,Pop/Rock,1970
+61938,Blue Ã?yster Cult,Pop/Rock,1960,787757,The Dictators,Pop/Rock,1970
 180263,Flamin' Groovies,Pop/Rock,1960,787757,The Dictators,Pop/Rock,1970
 182598,MC5,Pop/Rock,1960,787757,The Dictators,Pop/Rock,1970
 192382,Deep Purple,Pop/Rock,1960,787757,The Dictators,Pop/Rock,1970
@@ -34082,7 +34082,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 66915,Bob Dylan,Pop/Rock,1960,793108,Keren Ann,Pop/Rock,2000
 120953,Cowboy Junkies,Pop/Rock,1980,793108,Keren Ann,Pop/Rock,2000
 125829,Coralie ClÃ©ment,Pop/Rock,2000,793108,Keren Ann,Pop/Rock,2000
-150629,ï¿½?dith Piaf,Vocal,1930,793108,Keren Ann,Pop/Rock,2000
+150629,Ã?dith Piaf,Vocal,1930,793108,Keren Ann,Pop/Rock,2000
 174822,Serge Gainsbourg,Pop/Rock,1950,793108,Keren Ann,Pop/Rock,2000
 186594,FranÃ§oise Hardy,Pop/Rock,1960,793108,Keren Ann,Pop/Rock,2000
 216846,Jane Birkin,Pop/Rock,1960,793108,Keren Ann,Pop/Rock,2000
@@ -34306,7 +34306,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 31263,AndraÃ© Crouch,Religious,1960,796914,Carman,Religious,1970
 466759,Michael W. Smith,Religious,1980,796914,Carman,Religious,1970
 79016,Billie Holiday,Vocal,1930,797056,Elis Regina,International,1960
-150629,ï¿½?dith Piaf,Vocal,1930,797056,Elis Regina,International,1960
+150629,Ã?dith Piaf,Vocal,1930,797056,Elis Regina,International,1960
 162930,Eartha Kitt,Vocal,1940,797056,Elis Regina,International,1960
 181694,Carmen Miranda,Vocal,1930,797056,Elis Regina,International,1960
 185948,Carmen McRae,Vocal,1940,797056,Elis Regina,International,1960
@@ -34919,7 +34919,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 864257,Rahsaan Roland Kirk,Jazz,1950,806601,Charlie Hunter,Jazz,1990
 5953,Alice Cooper,Pop/Rock,1960,806740,Turbonegro,Pop/Rock,1980
 22124,Slayer,Pop/Rock,1980,806740,Turbonegro,Pop/Rock,1980
-61938,Blue ï¿½?yster Cult,Pop/Rock,1960,806740,Turbonegro,Pop/Rock,1980
+61938,Blue Ã?yster Cult,Pop/Rock,1960,806740,Turbonegro,Pop/Rock,1980
 84209,Kiss,Pop/Rock,1970,806740,Turbonegro,Pop/Rock,1980
 91650,Black Flag,Pop/Rock,1970,806740,Turbonegro,Pop/Rock,1980
 101701,Conflict,Pop/Rock,1980,806740,Turbonegro,Pop/Rock,1980
@@ -35897,7 +35897,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 5953,Alice Cooper,Pop/Rock,1960,825251,Marilyn Manson,Pop/Rock,1980
 25462,Tricky,Electronic,1990,825251,Marilyn Manson,Pop/Rock,1980
 38579,Soft Cell,Pop/Rock,1980,825251,Marilyn Manson,Pop/Rock,1980
-61938,Blue ï¿½?yster Cult,Pop/Rock,1960,825251,Marilyn Manson,Pop/Rock,1980
+61938,Blue Ã?yster Cult,Pop/Rock,1960,825251,Marilyn Manson,Pop/Rock,1980
 81493,Killing Joke,Pop/Rock,1970,825251,Marilyn Manson,Pop/Rock,1980
 84209,Kiss,Pop/Rock,1970,825251,Marilyn Manson,Pop/Rock,1980
 114342,The Doors,Pop/Rock,1960,825251,Marilyn Manson,Pop/Rock,1980
@@ -36959,7 +36959,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 66915,Bob Dylan,Pop/Rock,1960,852842,Planxty,International,1970
 67406,The Chieftains,International,1960,852842,Planxty,International,1970
 154533,Ewan MacColl,Folk,1940,852842,Planxty,International,1970
-310789,SeÃ¡n ï¿½? Riada,International,1950,852842,Planxty,International,1970
+310789,SeÃ¡n Ã? Riada,International,1950,852842,Planxty,International,1970
 620126,The Bothy Band,Unknown,1970,852842,Planxty,International,1970
 781094,The Clancy Brothers,International,1950,852842,Planxty,International,1970
 12472,Traffic,Pop/Rock,1960,852855,Roxy Music,Pop/Rock,1970
@@ -37033,7 +37033,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 71209,Leonard Cohen,Pop/Rock,1950,854854,Rufus Wainwright,Pop/Rock,1990
 129761,Jimmy Webb,Pop/Rock,1960,854854,Rufus Wainwright,Pop/Rock,1990
 130028,Freddie Mercury,Pop/Rock,1970,854854,Rufus Wainwright,Pop/Rock,1990
-150629,ï¿½?dith Piaf,Vocal,1930,854854,Rufus Wainwright,Pop/Rock,1990
+150629,Ã?dith Piaf,Vocal,1930,854854,Rufus Wainwright,Pop/Rock,1990
 171728,Ethel Merman,Vocal,1930,854854,Rufus Wainwright,Pop/Rock,1990
 208303,Jane Siberry,Pop/Rock,1980,854854,Rufus Wainwright,Pop/Rock,1990
 239859,Leonard Bernstein,Classical,1940,854854,Rufus Wainwright,Pop/Rock,1990
@@ -37092,7 +37092,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 38490,The Band,Pop/Rock,1960,855405,Kate & Anna McGarrigle,Folk,1970
 66915,Bob Dylan,Pop/Rock,1960,855405,Kate & Anna McGarrigle,Folk,1970
 99561,The Incredible String Band,Folk,1960,855405,Kate & Anna McGarrigle,Folk,1970
-150629,ï¿½?dith Piaf,Vocal,1930,855405,Kate & Anna McGarrigle,Folk,1970
+150629,Ã?dith Piaf,Vocal,1930,855405,Kate & Anna McGarrigle,Folk,1970
 162233,Fairport Convention,Pop/Rock,1960,855405,Kate & Anna McGarrigle,Folk,1970
 270491,Joni Mitchell,Pop/Rock,1960,855405,Kate & Anna McGarrigle,Folk,1970
 669015,Malvina Reynolds,Folk,1960,855405,Kate & Anna McGarrigle,Folk,1970
@@ -37111,7 +37111,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 60306,Harold Arlen,Stage & Screen,1930,855531,Barbra Streisand,Vocal,1950
 79016,Billie Holiday,Vocal,1930,855531,Barbra Streisand,Vocal,1950
 128249,Eydie Gorme,Vocal,1950,855531,Barbra Streisand,Vocal,1950
-150629,ï¿½?dith Piaf,Vocal,1930,855531,Barbra Streisand,Vocal,1950
+150629,Ã?dith Piaf,Vocal,1930,855531,Barbra Streisand,Vocal,1950
 171728,Ethel Merman,Vocal,1930,855531,Barbra Streisand,Vocal,1950
 184502,Ella Fitzgerald,Vocal,1930,855531,Barbra Streisand,Vocal,1950
 233035,Debbie Reynolds,Vocal,1940,855531,Barbra Streisand,Vocal,1950
@@ -39434,7 +39434,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 14651,Patsy Cline,Country,1950,934069,Brenda Lee,Country,1950
 98189,Kitty Wells,Country,1940,934069,Brenda Lee,Country,1950
 127451,Jackie DeShannon,Pop/Rock,1950,934069,Brenda Lee,Country,1950
-150629,ï¿½?dith Piaf,Vocal,1930,934069,Brenda Lee,Country,1950
+150629,Ã?dith Piaf,Vocal,1930,934069,Brenda Lee,Country,1950
 184502,Ella Fitzgerald,Vocal,1930,934069,Brenda Lee,Country,1950
 260038,Dinah Washington,Vocal,1940,934069,Brenda Lee,Country,1950
 317093,Nat King Cole,Jazz,1930,934069,Brenda Lee,Country,1950
@@ -39621,7 +39621,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 684920,Dave Grusin,Jazz,1960,936521,Mychael Danna,Stage & Screen,1980
 840000,Vangelis,Electronic,1960,936521,Mychael Danna,Stage & Screen,1980
 121590,Jacques Brel,Vocal,1950,936658,Brigitte Fontaine,Pop/Rock,1970
-150629,ï¿½?dith Piaf,Vocal,1930,936658,Brigitte Fontaine,Pop/Rock,1970
+150629,Ã?dith Piaf,Vocal,1930,936658,Brigitte Fontaine,Pop/Rock,1970
 154533,Ewan MacColl,Folk,1940,936946,Tommy Makem,International,1950
 266160,Pete Seeger,Folk,1930,936946,Tommy Makem,International,1950
 577531,Woody Guthrie,Folk,1930,936946,Tommy Makem,International,1950
@@ -40810,7 +40810,7 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 945269,George Winston,New Age,1970,988471,Enya,New Age,1980
 1098,Soundgarden,Pop/Rock,1980,988529,Fu Manchu,Pop/Rock,1990
 48566,The Black Crowes,Pop/Rock,1990,988529,Fu Manchu,Pop/Rock,1990
-61938,Blue ï¿½?yster Cult,Pop/Rock,1960,988529,Fu Manchu,Pop/Rock,1990
+61938,Blue Ã?yster Cult,Pop/Rock,1960,988529,Fu Manchu,Pop/Rock,1990
 139908,The Cult,Pop/Rock,1980,988529,Fu Manchu,Pop/Rock,1990
 349157,Melvins,Pop/Rock,1980,988529,Fu Manchu,Pop/Rock,1990
 501407,MotÃ¶rhead,Pop/Rock,1970,988529,Fu Manchu,Pop/Rock,1990
@@ -42499,15 +42499,15 @@ influencer_id,influencer_name,influencer_main_genre,influencer_active_start,foll
 178301,Fat Freddy's Drop,Electronic,2000,3319054,Jordan Rakei,R&B;,2010
 402249,Raphael Saadiq,R&B;,1980,3319054,Jordan Rakei,R&B;,2010
 935739,Musiq Soulchild,R&B;,2000,3319054,Jordan Rakei,R&B;,2010
-41874,The Beach Boys,Pop/Rock,1960,3323342,Bï¿½?RNS,Pop/Rock,2010
-43714,Bee Gees,Pop/Rock,1960,3323342,Bï¿½?RNS,Pop/Rock,2010
-79016,Billie Holiday,Vocal,1930,3323342,Bï¿½?RNS,Pop/Rock,2010
-135273,"Earth, Wind & Fire",R&B;,1960,3323342,Bï¿½?RNS,Pop/Rock,2010
-139026,Led Zeppelin,Pop/Rock,1960,3323342,Bï¿½?RNS,Pop/Rock,2010
-180228,Elvis Presley,Pop/Rock,1950,3323342,Bï¿½?RNS,Pop/Rock,2010
-247966,Julie London,Vocal,1940,3323342,Bï¿½?RNS,Pop/Rock,2010
-582313,The Zombies,Pop/Rock,1960,3323342,Bï¿½?RNS,Pop/Rock,2010
-836394,Scissor Sisters,Pop/Rock,2000,3323342,Bï¿½?RNS,Pop/Rock,2010
+41874,The Beach Boys,Pop/Rock,1960,3323342,BÃ?RNS,Pop/Rock,2010
+43714,Bee Gees,Pop/Rock,1960,3323342,BÃ?RNS,Pop/Rock,2010
+79016,Billie Holiday,Vocal,1930,3323342,BÃ?RNS,Pop/Rock,2010
+135273,"Earth, Wind & Fire",R&B;,1960,3323342,BÃ?RNS,Pop/Rock,2010
+139026,Led Zeppelin,Pop/Rock,1960,3323342,BÃ?RNS,Pop/Rock,2010
+180228,Elvis Presley,Pop/Rock,1950,3323342,BÃ?RNS,Pop/Rock,2010
+247966,Julie London,Vocal,1940,3323342,BÃ?RNS,Pop/Rock,2010
+582313,The Zombies,Pop/Rock,1960,3323342,BÃ?RNS,Pop/Rock,2010
+836394,Scissor Sisters,Pop/Rock,2000,3323342,BÃ?RNS,Pop/Rock,2010
 122219,Craig David,R&B;,1990,3329291,Jack Garratt,Pop/Rock,2010
 130689,Jackson Browne,Pop/Rock,1960,3329291,Jack Garratt,Pop/Rock,2010
 180516,Dave Grohl,Pop/Rock,1990,3329291,Jack Garratt,Pop/Rock,2010

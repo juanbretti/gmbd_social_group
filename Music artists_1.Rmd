@@ -39,7 +39,9 @@ library(tidyverse)
 library(igraph)
 library(caret)
 library(PerformanceAnalytics)
+library(networkD3)
 ```
+
 
 ## Load data
 
@@ -49,13 +51,23 @@ data_influence <- read_csv('data/influence_data.csv')
 data_artist <- read_csv('data/data_by_artist.csv')
 ```
 
-Reformat `soungs` data.frame
+Reformat `songs` data.frame
 
 ```{r}
-data_music %>% 
-  transform(artists_id = strsplit(str_trim(str_remove_all(artists_id, '[\\[\\]]'), side='both'), ",")) %>% 
-  unnest(artists_id)
-  # dplyr::filter(grepl(',', artist_names))
+data_influence <- data_influence %>% 
+  mutate(follower_main_genre = str_remove_all(follower_main_genre, ';'))
+
+artist_genre <- data_influence %>% 
+  select(`follower_name`, `follower_main_genre`) %>% 
+  unique() %>% 
+  rename(`artist_names`=`follower_name`, `main_genre`=`follower_main_genre`)
+
+data_music_genre <- data_music %>%
+  transform(artists_id = strsplit(str_trim(str_remove_all(artists_id, '[\\[\\]]'), side='both'), ","),
+            artist_names = strsplit(str_trim(str_remove_all(artist_names, '[\\[\\]]'), side='both'), ",")) %>%
+  unnest(artist_names) %>% 
+  mutate(artist_names = gsub('^.|.$', '', artist_names)) %>% 
+  inner_join(artist_genre, by="artist_names")
 ```
 
 Problem with unknown artist
@@ -97,8 +109,7 @@ data_influence_transformed <- data_influence %>%
 ```{r}
 data_influence_edges <- data_influence_transformed %>% 
   rename(from=influencer_id, to=follower_id) %>% 
-  relocate(from, to, weight) %>% 
-  filter(!(to %in% unknown_artist))
+  relocate(from, to, weight)
 
 data_artist_vertices <- data_artist %>% 
   rename(name=artist_name) %>% 
@@ -116,54 +127,104 @@ g <- graph_from_data_frame(d=data_influence_edges, vertices=data_artist_vertices
 ```
 
 # EDA
-## Filter
-
-Remove vertices
-<https://stackoverflow.com/questions/29784095/conditional-removing-of-vertices-based-on-attributes-in-r>
-<https://stackoverflow.com/questions/53696798/filter-igraph-object-by-vertex-attribute-value>
-
-From
-<https://stackoverflow.com/questions/3305669/how-do-i-find-the-edges-of-a-vertex-using-igraph-and-r>
+## Duration evolution
 
 ```{r}
-# g1 <- delete_vertices(g, V(g)$danceability >= 0.9)
+top_ <- 5
 
-g1 <- induced_subgraph(g, V(g)$danceability >= 0.85)
-g1 <- induced_subgraph(g, V(g)$tempo >= 180)
-# plot(g1)
+sorted_music_genre <- data_music_genre %>% 
+  group_by(`main_genre`) %>% 
+  tally() %>% 
+  arrange(desc(n)) %>% 
+  select(`main_genre`) %>% 
+  unlist(use.names=FALSE)
+
+data_music_genre %>% 
+  mutate(main_genre = factor(main_genre, levels=sorted_music_genre)) %>% 
+  filter(main_genre %in% sorted_music_genre[1:top_]) %>% 
+  group_by(`year`, `main_genre`) %>% 
+  summarise(mean=mean(duration_ms)/1000/60) %>% 
+  ggplot(aes(x=`year`, y=`mean`, color=`main_genre`)) +
+  geom_line() +
+  ylim(c(1.5, 5)) +
+  labs(title='Song duration over time per genre', x=NULL, y='Minutes', color='Genre')
+
+data_music_genre %>% 
+  mutate(main_genre = factor(main_genre, levels=sorted_music_genre)) %>% 
+  filter(main_genre %in% sorted_music_genre[1:top_]) %>% 
+  ggplot(aes(x=`year`, y=`duration_ms`/1000/60)) +
+  geom_smooth(aes(color=`main_genre`), method="lm", formula=y~poly(x, 3, raw=TRUE)) +
+  ylim(c(0, 5)) +
+  labs(title='Song duration over time', x=NULL, y='Minutes', color='Genre')
+
 ```
 
-Remove edges
-<https://stackoverflow.com/questions/25413633/igraph-in-r-how-to-select-edges-based-on-incident-vertex-attributes>
-<https://igraph.org/r/doc/subgraph.html>
+## Tempo evolution
 
 ```{r}
-# Nat King Cole	 
-filter_idx <- match("Enrique Iglesias", V(g)$name)
-filter_edges <- as.numeric(E(g)[from(filter_idx)])
-g1 <- subgraph.edges(g, filter_edges, delete.vertices = TRUE)
-                       
-plot(g1)
+data_music_genre %>% 
+  mutate(main_genre = factor(main_genre, levels=sorted_music_genre)) %>% 
+  filter(main_genre %in% sorted_music_genre[1:top_]) %>% 
+  ggplot(aes(x=`year`, y=`tempo`)) +
+  geom_smooth(aes(color=`main_genre`), method="lm", formula=y~poly(x, 3, raw=TRUE)) +
+  # ylim(c(0, 5)) +
+  labs(title='Song tempo over time', x=NULL, y='Tempo', color='Genre')
 ```
 
-### Topology-Ego Filter
-https://stackoverflow.com/a/39992337/3780957
+## Top influencer artists
 
 ```{r}
-# g_ego <- make_ego_graph(g, order = 1, nodes = 'Gloria Estefan', mode = "all", mindist = 0)
-g_ego <- make_ego_graph(g, order = 1, nodes = 'Enrique Iglesias', mode = "all", mindist = 0)
-# g_ego <- make_ego_graph(g, order = 1, nodes = 'Ricky Martin', mode = "all", mindist = 0)
-# g_ego <- make_ego_graph(g, order = 1, nodes = 'Madonna', mode = "all", mindist = 0)
-g_ego <- g_ego[[1]]
-plot(g_ego, edge.arrow.size=.2)
+top_influencers_ <- 5
+
+data_influence_sorted <- data_influence %>% 
+  group_by(`influencer_name`) %>% 
+  tally() %>% 
+  arrange(desc(n)) %>% 
+  select(`influencer_name`) %>% 
+  unlist(use.names=FALSE)
+
+data_influence %>% 
+  mutate(influencer_name = factor(influencer_name, levels=data_influence_sorted)) %>% 
+  dplyr::filter(influencer_name %in% data_influence_sorted[1:top_]) %>% 
+  group_by(`influencer_name`) %>% 
+  tally() %>% 
+  ggplot(aes(x=`influencer_name`, y=`n`)) +
+  geom_col() +
+  coord_flip() +
+  scale_x_discrete(limits = rev) +
+  labs(title='Top influencer artists', x=NULL, y='Number of influenced')
+
+data_influence %>% 
+  mutate(follower_main_genre = factor(follower_main_genre, levels=sorted_music_genre)) %>% 
+  filter(follower_main_genre %in% sorted_music_genre[1:top_]) %>% 
+  group_by(`follower_main_genre`, `influencer_name`) %>%
+  tally() %>% 
+  arrange(desc(n)) %>% 
+  slice(1:top_influencers_) %>% 
+  ggplot(aes(x=reorder(`influencer_name`, -n, sum), y=`n`)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+  scale_x_discrete(limits = rev) +
+  facet_wrap(`follower_main_genre` ~ ., scales="free_y") +
+  labs(title='Top influencer artists by genre', x=NULL, y='Number of influenced')
 ```
 
-### Shortest path
+## Source of inspiration by genre
 
 ```{r}
-short <- all_shortest_paths(g, from='Enrique Iglesias', to = 'Kiss', mode = "all")
-short$res[[1]]
+data_influence %>% 
+  mutate(influencer_main_genre = factor(influencer_main_genre, levels=sorted_music_genre),
+         follower_main_genre = factor(follower_main_genre, levels=sorted_music_genre)) %>% 
+  filter(influencer_main_genre %in% sorted_music_genre[1:top_], follower_main_genre %in% sorted_music_genre[1:top_]) %>% 
+  group_by(`influencer_main_genre`, `follower_main_genre`) %>%
+  tally() %>% 
+  ggplot(aes(x=reorder(`influencer_main_genre`, -n, sum), y=reorder(`follower_main_genre`, -n, sum), fill=log(`n`))) +
+  geom_tile() +
+  scale_x_discrete(guide = guide_axis(angle = 90)) +
+  labs(title='Source of inspiration by genre', x='Influencer', y='Follower', fill=NULL) +
+  scale_fill_gradient(low="#F2D544", high="#025959")
 ```
+
 
 # Description
 
@@ -228,6 +289,7 @@ To follow the class exercise, the following line ignores for the `closeness` the
 dg <- degree(g, mode = "total", loop=FALSE, normalized=TRUE)
 bt <- betweenness(g, normalized=TRUE)
 cl <- closeness(g, normalized=TRUE)
+pr <- page_rank(g)$vector
 
 cat('Degree\n')
 head(sort(dg, decreasing=TRUE), 5)
@@ -237,6 +299,9 @@ head(sort(bt, decreasing=TRUE), 5)
 
 cat('\n\nCloseness\n')
 head(sort(cl, decreasing=TRUE), 5)
+
+cat('\n\nPage Rank\n')
+head(sort(pr, decreasing=TRUE), 5)
 ```
 
 ### Correlation
@@ -245,11 +310,12 @@ The following plot, checks the correlation between the tree calculated centralit
 - Degree \
 - Betweenness \
 - Closeness \
-There is a slight posirive correlation of `0.39` between `degree` and `betweenness`.\
+- Page Rank \
+There is a slight posirive correlation of `0.34` between `degree` and `betweenness`.\
 The values of the metrics are not normalized neither scaled.
 
 ```{r}
-results <- data.frame(Degree=dg, Betweenness=bt, Closeness=cl) 
+results <- data.frame(Degree=dg, Betweenness=bt, Closeness=cl, `Page Rank`=pr) 
 chart.Correlation(results, histogram=TRUE, pch=19)
 ```
 
@@ -278,9 +344,6 @@ The different methods for finding communities, they all return a communities obj
 ```{r}
 # Communities can only be calculated for undirected graphs
 g_undirected <- as.undirected(g, mode='collapse', edge.attr.comb="max")
-
-# Calculate the weight, using the distance in years between the follower and influencer
-# E(g_undirected)$weight = E(g_undirected)$follower_active_start - E(g_undirected)$influencer_active_start
 ```
 
 ```{r}
@@ -292,7 +355,8 @@ cluster_test <- list(
   cluster_louvain=cluster_louvain(g_undirected),
   # cluster_optimal=cluster_optimal(g_undirected) # Super slow
   # cluster_spinglass=cluster_spinglass(g), # Cannot work with unconnected graph, Invalid value
-  cluster_walktrap=cluster_walktrap(g_undirected)
+  cluster_walktrap=cluster_walktrap(g_undirected),
+  walktrap.community=walktrap.community(g_undirected)
 )
 
 lapply(cluster_test, modularity)
@@ -339,20 +403,116 @@ which.max(x)
 ## Validation if the vertex labels per community makes sense
 
 ```{r}
-g_communities[]$`3`
+g_communities[]$`66`
 ```
 
-#Predict edges based on a hierarchical random graph model
+# Case study
+## Filter
+
+Remove vertices
+<https://stackoverflow.com/questions/29784095/conditional-removing-of-vertices-based-on-attributes-in-r>
+<https://stackoverflow.com/questions/53696798/filter-igraph-object-by-vertex-attribute-value>
+
+From
+<https://stackoverflow.com/questions/3305669/how-do-i-find-the-edges-of-a-vertex-using-igraph-and-r>
+
+```{r}
+g1 <- induced_subgraph(g, V(g)$danceability >= 0.85)
+g1 <- induced_subgraph(g, V(g)$tempo >= 180)
+# plot(g1)
+```
+
+Remove edges
+<https://stackoverflow.com/questions/25413633/igraph-in-r-how-to-select-edges-based-on-incident-vertex-attributes>
+<https://igraph.org/r/doc/subgraph.html>
+
+```{r}
+# Nat King Cole	 
+filter_idx <- match("Enrique Iglesias", V(g)$name)
+filter_edges <- as.numeric(E(g)[from(filter_idx)])
+g1 <- subgraph.edges(g, filter_edges, delete.vertices = TRUE)
+                       
+plot(g1)
+```
+
+## Topology-Ego Filter
+https://stackoverflow.com/a/39992337/3780957
+
+```{r}
+# g_ego <- make_ego_graph(g, order = 1, nodes = 'Gloria Estefan', mode = "all", mindist = 0)
+g_ego <- make_ego_graph(g, order = 1, nodes = 'Enrique Iglesias', mode = "all", mindist = 0)
+# g_ego <- make_ego_graph(g, order = 1, nodes = 'Ricky Martin', mode = "all", mindist = 0)
+# g_ego <- make_ego_graph(g, order = 1, nodes = 'Madonna', mode = "all", mindist = 0)
+g_ego <- g_ego[[1]]
+```
+
+### Interactive plot
+https://juanitorduz.github.io/text-mining-networks-and-visualization-plebiscito-tweets/
+
+```{r}
+plot_network_3D <- function(network, arrow=TRUE) {
+  # Store the degree.
+  V(network)$degree <- strength(graph = network)
+  # Create networkD3 object.
+  network.D3 <- igraph_to_networkD3(g = network)
+  # Define node size.
+  network.D3$nodes <- network.D3$node %>% mutate(Degree = V(network)$degree, Group = 1)
+  # Define edges width. 
+  network.D3$links$Width <- 1
+  
+  forceNetwork(
+    Links = network.D3$links, 
+    Nodes = network.D3$nodes, 
+    Source = 'source', 
+    Target = 'target',
+    NodeID = 'name',
+    Group = 'Group',
+    opacity = 0.9,
+    Value = 'Width',
+    Nodesize = 'Degree',
+    # We input a JavaScript function.
+    linkWidth = JS("function(d) { return Math.sqrt(d.value); }"), 
+    fontSize = 12,
+    arrows = arrow,
+    zoom = TRUE, 
+    opacityNoHover = 1
+  )
+}
+
+plot(g_ego, edge.arrow.size=.2)
+plot_network_3D(g_ego)
+```
+
+## Shortest path
+
+```{r}
+short <- all_shortest_paths(g, from='Enrique Iglesias', to = 'Wolfgang Amadeus Mozart', mode = "all")
+g1 <- induced_subgraph(g, short$res[[1]])
+plot(g1)
+plot_network_3D(g1)
+```
+
+## Color boundary for communities
+https://stackoverflow.com/questions/37374355/how-can-i-plot-igraph-community-with-defined-colors
+
+```{r}
+g_undirected <- as.undirected(g_ego, mode='collapse', edge.attr.comb="max")
+wc <- cluster_louvain(g_undirected)
+
+layout <-layout.fruchterman.reingold(g_ego)
+par(mar=c(0,0,0,0)+.1)
+
+plot(wc, g_ego, layout=layout, vertex.size=5,  edge.arrow.size=.2)
+```
+
+
+# Predict edges based on a hierarchical random graph model
+
+`predict_edges` uses a hierarchical random graph model to predict missing edges from a network. This is done by sampling hierarchical models around the optimum model, proportionally to their likelihood.
 
 https://igraph.org/r/doc/predict_edges.html
 
 Based on a smaller graph, centered in 'Enrique Iglesias'.
-
-```{r}
-g_ego <- make_ego_graph(g, order = 1, nodes = 'Enrique Iglesias', mode = "all", mindist = 0)
-g_ego <- g_ego[[1]]
-plot(g_ego, edge.arrow.size=.2)
-```
 
 ```{r}
 hrg <- fit_hrg(g_ego)
@@ -362,7 +522,3 @@ hrg
 ```{r}
 g_ego_predicted <- predict_edges(g_ego, hrg=hrg)
 ```
-
-Ideas
-
-<https://github.com/jdwilson4/Network-Analysis-I/blob/master/Code/Descriptive_Analysis.R>
