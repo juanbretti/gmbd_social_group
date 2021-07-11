@@ -205,7 +205,7 @@ graph_stats <- function(g) {
 }
 
 # Centrality Measurements ----
-centrality_measurements <- function(g) {
+centrality_measurements <- function(g, top_=5) {
     # Closeness
     g_components <- components(g, mode="strong")
     biggest_component <- which.max(g_components$csize)
@@ -223,7 +223,7 @@ centrality_measurements <- function(g) {
         df_ <- tibble(Name=names(df), Value=as.numeric(df))
         df_ %>% 
             arrange(desc(Value)) %>% 
-            slice_head(n = 5)
+            slice_head(n = top_)
     }    
     
     # Plot
@@ -395,7 +395,7 @@ ui <- navbarPage(title = "Social Music Café",
                                                           span('General metrics'),
                                                           tableOutput('graph_stats__df__g')),
                                                       column(6,
-                                                          span('Top artist considering metric'),
+                                                          textOutput('metric__g'),
                                                           tableOutput('top_by_metric__df__g'))
                                                   ),
                                                   br(),
@@ -438,7 +438,7 @@ ui <- navbarPage(title = "Social Music Café",
                                               ),
                                               tabPanel("Inspiration", 
                                                        span('Inspiration by genre'),
-                                                       plotOutput('plot_inspiration__g')
+                                                       plotOutput('plot_inspiration__g', height = 800)
                                               )
                                   )
                               )
@@ -452,11 +452,14 @@ ui <- navbarPage(title = "Social Music Café",
                                   span("Select your favorite artist"),
                                   br(),
                                   selectInput('artist', 'Artist', choices=sort(list_of_possible_artist), selected = 'Enrique Iglesias'),
-                                  sliderInput('top', 'Number of top', min = 1, max = 20, value = 5),
-                                  sliderInput('top_influencer', 'Number of top influencers', min = 1, max = 20, value = 5)
+                                  sliderInput('top', 'Number of top', min = 1, max = 20, value = 5)
                               ),
                               mainPanel(
                                   tabsetPanel(type = "tabs",
+                                              tabPanel("Visualization", 
+                                                  span('Interactive plot'),
+                                                  forceNetworkOutput('plot_network_3D__ego', height = 1200)
+                                              ),
                                               tabPanel("Statistics", 
                                                   span('General metrics'),
                                                   tableOutput('graph_stats__df__ego'),
@@ -497,6 +500,54 @@ ui <- navbarPage(title = "Social Music Café",
                                   )
                               )
                           )
+                 ),
+                 tabPanel("Shortest path",
+                          sidebarLayout(
+                              sidebarPanel(
+                                  div(img(src="SMC_LOGO_FOND_CLAIR.png",height=150,width=150), style="text-align: center;"),
+                                  br(),
+                                  span("Select your favorite artists"),
+                                  br(),
+                                  selectInput('artist', 'Artist from', choices=sort(list_of_possible_artist), selected = 'Enrique Iglesias'),
+                                  selectInput('artist_to', 'Artist to', choices=sort(list_of_possible_artist), selected = 'Wolfgang Amadeus Mozart'),
+                                  sliderInput('top', 'Number of top', min = 1, max = 20, value = 5)
+                              ),
+                              mainPanel(
+                                  tabsetPanel(type = "tabs",
+                                              tabPanel("Visualization", 
+                                                  span('Interactive plot'),
+                                                  forceNetworkOutput('plot_network_3D__short', height = 1200)
+                                              ),
+                                              tabPanel("Statistics", 
+                                                  span('General metrics'),
+                                                  tableOutput('graph_stats__df__short'),
+                                                  br(),
+                                                  span('Distribution of degree'),
+                                                  plotOutput('graph_stats__plot__short'),
+                                                  br(),
+                                                  fluidRow(
+                                                      column(6,
+                                                             span('Degree'),
+                                                             tableOutput('centrality_measurements__dg_top__short')),
+                                                      column(6,
+                                                             span('Betweeness'),
+                                                             tableOutput('centrality_measurements__bt_top__short'))
+                                                  ),
+                                                  fluidRow(
+                                                      column(6,
+                                                             span('Closeness'),
+                                                             tableOutput('centrality_measurements__cl_top__short')),
+                                                      column(6,
+                                                             span('Page Rank'),
+                                                             tableOutput('centrality_measurements__pr_top__short'))
+                                                  ),
+                                                  br(),
+                                                  span('Correlation plot'),
+                                                  plotOutput('centrality_measurements__corr_plot__short')
+                                              )
+                                  )
+                              )
+                          )
                  )
 )
 
@@ -505,21 +556,16 @@ server <- function(input, output) {
     
     # General
     graph_stats__g <- graph_stats(g)
-    centrality_measurements__g <- centrality_measurements(g)
-    
+    centrality_measurements__g <- centrality_measurements(g, 5)
+
     # Render
     output$graph_stats__df__g <- renderTable(graph_stats__g$df)
     output$graph_stats__plot__g <- renderPlot(graph_stats__g$plot)
     
-    output$centrality_measurements__dg_top__g <- renderTable(centrality_measurements__g$dg_top)
-    output$centrality_measurements__bt_top__g <- renderTable(centrality_measurements__g$bt_top)
-    output$centrality_measurements__cl_top__g <- renderTable(centrality_measurements__g$cl_top)
-    output$centrality_measurements__cl_top_fix__g <- renderTable(centrality_measurements__g$dg_top_fix)
-    output$centrality_measurements__pr_top__g <- renderTable(centrality_measurements__g$pr_top)
-    output$centrality_measurements__corr_plot__g <- renderPlot(chart.Correlation(centrality_measurements__g$corr_df, histogram=TRUE, pch=19))
-
     # Top for General 
     observeEvent(c(input$top, input$top_influencer), ignoreNULL = FALSE, ignoreInit = FALSE, {
+        centrality_measurements__g <- centrality_measurements(g, input$top)
+        
         plot_duration__g <- plot_duration(input$top, data_music_genre)
         plot_influencer__g <- plot_influencer(input$top, input$top_influencer, data_influence)
         plot_inspiration__g <- plot_inspiration(input$top, data_influence)
@@ -532,6 +578,13 @@ server <- function(input, output) {
         output$plot_inspiration__g__influencer_genre <- renderPlot(plot_influencer__g$influencer_genre)
         
         output$plot_inspiration__g <- renderPlot(plot_inspiration__g)
+        
+        output$centrality_measurements__dg_top__g <- renderTable(centrality_measurements__g$dg_top)
+        output$centrality_measurements__bt_top__g <- renderTable(centrality_measurements__g$bt_top)
+        output$centrality_measurements__cl_top__g <- renderTable(centrality_measurements__g$cl_top)
+        output$centrality_measurements__cl_top_fix__g <- renderTable(centrality_measurements__g$dg_top_fix)
+        output$centrality_measurements__pr_top__g <- renderTable(centrality_measurements__g$pr_top)
+        output$centrality_measurements__corr_plot__g <- renderPlot(chart.Correlation(centrality_measurements__g$corr_df, histogram=TRUE, pch=19))
     })
     
     # Top for General 
@@ -549,6 +602,8 @@ server <- function(input, output) {
         }
         top_by_metric__g <- top_by_metric(metric_, data_artist_vertices, input$top)
         output$top_by_metric__df__g <- renderTable(top_by_metric__g)
+        
+        output$metric__g <- renderText(paste('Top artist considering', input$metric))
     })
     
     # For ego
@@ -563,7 +618,10 @@ server <- function(input, output) {
         
         # Calculation
         graph_stats__ego <- graph_stats(g_ego[[1]])
-        centrality_measurements__ego <- centrality_measurements(g_ego[[1]])
+        centrality_measurements__ego <- centrality_measurements(g_ego[[1]], input$top)
+        
+        # Animated plot
+        plot_network_3D__ego <- plot_network_3D(g_ego[[1]])
         
         # Render
         output$graph_stats__df__ego <- renderTable(graph_stats__ego$df)
@@ -582,6 +640,36 @@ server <- function(input, output) {
         p <- community_measurements__ego$plot_communities
         output$community_measurements__ego__plot_communities <- renderPlot(plot(p[[1]], p[[2]], layout=p[[3]], vertex.size=5,  edge.arrow.size=.2), height = 800, width = 1200)
         
+        output$plot_network_3D__ego <- renderForceNetwork(plot_network_3D__ego)
+        
+    })
+    
+    # For short
+    observeEvent(c(input$artist, input$top, input$artist_to), ignoreNULL = FALSE, ignoreInit = FALSE, {   
+
+        short <- all_shortest_paths(g, from=input$artist, to = input$artist_to, mode = "all")
+        g_short <- induced_subgraph(g, short$res[[1]])
+        
+        # Calculation
+        graph_stats__short <- graph_stats(g_short)
+        centrality_measurements__short <- centrality_measurements(g_short, input$top)
+        
+        # Animated plot
+        plot_network_3D__short <- plot_network_3D(g_short)
+        
+        # Render
+        output$graph_stats__df__short <- renderTable(graph_stats__short$df)
+        output$graph_stats__plot__short <- renderPlot(graph_stats__short$plot)
+        
+        output$centrality_measurements__dg_top__short <- renderTable(centrality_measurements__short$dg_top)
+        output$centrality_measurements__bt_top__short <- renderTable(centrality_measurements__short$bt_top)
+        output$centrality_measurements__cl_top__short <- renderTable(centrality_measurements__short$cl_top)
+        output$centrality_measurements__cl_top_fix__short <- renderTable(centrality_measurements__short$dg_top_fix)
+        output$centrality_measurements__pr_top__short <- renderTable(centrality_measurements__short$pr_top)
+        output$centrality_measurements__corr_plot__short <- renderPlot(chart.Correlation(centrality_measurements__short$corr_df, histogram=TRUE, pch=19))
+        
+        output$plot_network_3D__short <- renderForceNetwork(plot_network_3D__short)
+    
     })
 }
 

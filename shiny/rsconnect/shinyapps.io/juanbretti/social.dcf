@@ -5,9 +5,9 @@ account: juanbretti
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 4372899
-bundleId: 4807296
+bundleId: 4808422
 url: https://juanbretti.shinyapps.io/social/
-when: 1625961852.42636
-lastSyncTime: 1625961852.42636
+when: 1626013642.57759
+lastSyncTime: 1626013642.57759
 asMultiple: FALSE
 asStatic: FALSE
