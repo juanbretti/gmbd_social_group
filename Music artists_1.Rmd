@@ -1,8 +1,33 @@
 ---
 title: "SOCIAL NETWORKS ANALYSIS (MBD-EN-BL2020J-1_32R220_387064)"
 author: "Alberto I., Daniel R., Iman H., Juan Pedro B., Pablo B., Vania M."
-output: html_document
+output:
+  html_document:
+    code_folding: hide
+    toc: true
+    toc_float:
+      collapsed: true
 ---
+
+```{css, echo=FALSE}
+.html-widget {
+    margin: auto;
+}
+body .main-container {
+  max-width: 1280px !important;
+  width: 1280px !important;
+}
+body {
+  max-width: 1280px !important;
+}
+toc-content {
+    max-width: 1280px !important;
+}
+```
+
+```{r setup, include=FALSE, eval=TRUE}
+knitr::opts_chunk$set(message = FALSE, echo=TRUE, warning=FALSE)
+```
 
 # Description
 
@@ -156,7 +181,6 @@ data_music_genre %>%
   geom_smooth(aes(color=`main_genre`), method="lm", formula=y~poly(x, 3, raw=TRUE)) +
   ylim(c(0, 5)) +
   labs(title='Song duration over time', x=NULL, y='Minutes', color='Genre')
-
 ```
 
 ## Tempo evolution
@@ -307,10 +331,10 @@ head(sort(pr, decreasing=TRUE), 5)
 ### Correlation
 
 The following plot, checks the correlation between the tree calculated centrality measures: \
-- Degree \
-- Betweenness \
-- Closeness \
-- Page Rank \
+* Degree \
+* Betweenness \
+* Closeness \
+* Page Rank \
 There is a slight posirive correlation of `0.34` between `degree` and `betweenness`.\
 The values of the metrics are not normalized neither scaled.
 
@@ -505,9 +529,9 @@ par(mar=c(0,0,0,0)+.1)
 plot(wc, g_ego, layout=layout, vertex.size=5,  edge.arrow.size=.2)
 ```
 
+# Predict edges
 
-# Predict edges based on a hierarchical random graph model
-
+Based on a hierarchical random graph model.\
 `predict_edges` uses a hierarchical random graph model to predict missing edges from a network. This is done by sampling hierarchical models around the optimum model, proportionally to their likelihood.
 
 https://igraph.org/r/doc/predict_edges.html
