@@ -67,6 +67,9 @@ library(PerformanceAnalytics)
 library(networkD3)
 ```
 
+```{r}
+theme_set(theme_minimal(base_size = 20))
+```
 
 ## Load data
 
@@ -129,6 +132,19 @@ data_influence_transformed <- data_influence %>%
   mutate(`weight` = dist(matrix(c(`PC1_influencer`, `PC1_follower`, `PC2_influencer`, `PC2_follower`, `PC3_influencer`, `PC3_follower`), nrow = 2)))
 ```
 
+
+```{r}
+vars <- apply(tranformation_1$rotation, 2, var)
+vars/sum(vars)
+
+pc1 <- sum(tranformation_1$rotation[,1])
+pc2 <- sum(tranformation_1$rotation[,2])
+pc3 <- sum(tranformation_1$rotation[,3])
+
+pc1/sum(pc1+pc2+pc3)
+```
+
+
 ## Create the graph
 
 ```{r}
@@ -172,7 +188,8 @@ data_music_genre %>%
   ggplot(aes(x=`year`, y=`mean`, color=`main_genre`)) +
   geom_line() +
   ylim(c(1.5, 5)) +
-  labs(title='Song duration over time per genre', x=NULL, y='Minutes', color='Genre')
+  labs(title='Song duration over time per genre', x=NULL, y='Minutes', color='Genre')+
+  theme_light()
 
 data_music_genre %>% 
   mutate(main_genre = factor(main_genre, levels=sorted_music_genre)) %>% 
@@ -180,7 +197,8 @@ data_music_genre %>%
   ggplot(aes(x=`year`, y=`duration_ms`/1000/60)) +
   geom_smooth(aes(color=`main_genre`), method="lm", formula=y~poly(x, 3, raw=TRUE)) +
   ylim(c(0, 5)) +
-  labs(title='Song duration over time', x=NULL, y='Minutes', color='Genre')
+  labs(title='Song duration over time', x=NULL, y='Minutes', color='Genre') +
+  theme_light()
 ```
 
 ## Tempo evolution

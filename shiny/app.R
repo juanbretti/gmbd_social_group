@@ -8,6 +8,7 @@ library(networkD3)
 
 # Constants
 TRAIN <- FALSE
+theme_set(theme_minimal(base_size = 20))
 
 # Create the RDS ----
 if (TRAIN) {
@@ -372,14 +373,14 @@ list_of_possible_artist <- data_artist_vertices %>%
     slice(1:50) %>% 
     select(`name`) %>% 
     unlist(use.names = FALSE)
-list_of_possible_artist <- c(list_of_possible_artist, 'Enrique Iglesias')
+list_of_possible_artist <- c(list_of_possible_artist, 'Enrique Iglesias', 'Spice Girls')
 
 # UI ----
-ui <- navbarPage(title = "Social Music Café",
+ui <- navbarPage(title = "Music Network",
                  tabPanel("General description",
                           sidebarLayout(
                               sidebarPanel(
-                                  div(img(src="SMC_LOGO_FOND_CLAIR.png",height=150,width=150), style="text-align: center;"),
+                                  div(img(src="MicrosoftTeams-image.png",weight=1282/4,height=424/4), style="text-align: center;"),
                                   br(),
                                   span("General descriptive information from the database"),
                                   br(),
@@ -447,7 +448,7 @@ ui <- navbarPage(title = "Social Music Café",
                  tabPanel("Artist ego",
                           sidebarLayout(
                               sidebarPanel(
-                                  div(img(src="SMC_LOGO_FOND_CLAIR.png",height=150,width=150), style="text-align: center;"),
+                                  div(img(src="MicrosoftTeams-image.png",weight=1282/4,height=424/4), style="text-align: center;"),
                                   br(),
                                   span("Select your favorite artist"),
                                   br(),
@@ -504,11 +505,11 @@ ui <- navbarPage(title = "Social Music Café",
                  tabPanel("Shortest path",
                           sidebarLayout(
                               sidebarPanel(
-                                  div(img(src="SMC_LOGO_FOND_CLAIR.png",height=150,width=150), style="text-align: center;"),
+                                  div(img(src="MicrosoftTeams-image.png",weight=1282/4,height=424/4), style="text-align: center;"),
                                   br(),
                                   span("Select your favorite artists"),
                                   br(),
-                                  selectInput('artist', 'Artist from', choices=sort(list_of_possible_artist), selected = 'Enrique Iglesias'),
+                                  selectInput('artist_from', 'Artist from', choices=sort(list_of_possible_artist), selected = 'Enrique Iglesias'),
                                   selectInput('artist_to', 'Artist to', choices=sort(list_of_possible_artist), selected = 'Wolfgang Amadeus Mozart'),
                                   sliderInput('top', 'Number of top', min = 1, max = 20, value = 5)
                               ),
@@ -645,9 +646,9 @@ server <- function(input, output) {
     })
     
     # For short
-    observeEvent(c(input$artist, input$top, input$artist_to), ignoreNULL = FALSE, ignoreInit = FALSE, {   
+    observeEvent(c(input$artist_from, input$top, input$artist_to), ignoreNULL = FALSE, ignoreInit = FALSE, {   
 
-        short <- all_shortest_paths(g, from=input$artist, to = input$artist_to, mode = "all")
+        short <- all_shortest_paths(g, from=input$artist_from, to = input$artist_to, mode = "all")
         g_short <- induced_subgraph(g, short$res[[1]])
         
         # Calculation
