@@ -1,0 +1,682 @@
+---
+title: "SOCIAL NETWORKS ANALYSIS (MBD-EN-BL2020J-1_32R220_387064)"
+author: "Alberto I., Daniel R., Iman H., Juan Pedro B., Pablo B., Vania M."
+output:
+  html_document:
+    code_folding: hide
+    toc: true
+    toc_float:
+      collapsed: true
+---
+
+```{css, echo=FALSE}
+.html-widget {
+    margin: auto;
+}
+body .main-container {
+  max-width: 1280px !important;
+  width: 1280px !important;
+}
+body {
+  max-width: 1280px !important;
+}
+toc-content {
+    max-width: 1280px !important;
+}
+```
+
+```{r setup, include=FALSE, eval=TRUE}
+knitr::opts_chunk$set(message = FALSE, echo=TRUE, warning=FALSE)
+```
+
+# Assignment Description and Deliverables
+Practical social network analysis analysis of a music related dataset. The assignment includes the following deliverables:
+1) Interactive Shiny App. GROUP C uses this interactive app for its final presentation with the aim to have a more interactive and fun approach with the class (https://juanbretti.shinyapps.io/social/). 
+2) HTML report generated directly from this .Rmd file.
+3) An insightful .ppt file to summarize the overall work and key information.
+
+# Analysis. Steps completed
+GROUP C completed the following steps as part of the analysis:
+- Representation of artists
+  a) PCA to get a proper vectorial representation of artists.
+- Descriptive analysis of the dataset- EDA.
+  a) Songs duration over time.
+  b) Songs tempo over time.
+  c) Top influencer artists.
+  d) Top influencer artists by genre.
+  e) Source of inspiration by genre.
+- Analysis over the most important nodes of the graph /Main properties of the graph/ Communities analysis.
+  a) Main metrics for the network.
+  b) Correlations.
+  c) Distribution.
+  d) Artist relevance in the network and graph representation.
+  e) Shortest path analysis in the network (artist to artist).
+  e) Communities analysis.
+  Used the following centrality metrics: degree, closeness, betweeness and page rank.
+- Link prediction.
+- Sentiment Analysis of each group.
+- Information diffusion.
+
+# Dataset Description
+The selected dataset comes from the following source: https://www.allmusic.com/ This source includes detailed music referred information with details over artists and songs. Specifically at this site the following information can  be retrieved:
+
+- Artists.
+- Genres & Styles.
+- Music Themes.
+- Music ratings.
+- Recording Details & Types.
+- Album Moods.
+- Album Themes.
+
+Downloaded datasets: https://www.kaggle.com/chuninghe/music-artistsinfluence-data that relate to the previous referred site.
+
+Specifically, in this exercise GROUP C used the following data:
+
+1) Artists Details (data_by_artist.csv). Includes in total 5854 artists and a total of 14 relevant features.
+- danceability	
+- energy	
+- valence	
+- tempo	
+- loudness	
+- mode	
+- key	
+- acousticness	
+- instrumentalness	
+- liveness	
+- speechiness	
+- duration_ms	
+- popularity	
+- count
+
+2) Music/ Songs related information (full_music_data.csv). Includes in total 98340 records related to artist songs and 
+16 relevant features. These features describe the characteristics of each of the songs.
+- danceability
+- energy
+- valence
+- tempo
+- loudness
+- mode
+- key
+- acousticness
+- instrumentalness
+- liveness
+- speechiness
+- explicit
+- duration_ms
+- popularity
+- year
+- release_date
+
+The representation of an artist is built out of the songs he/she released in the past. In that way, both songs and artists can share an even vectorial space where both can be related. This is quite useful to assess proximity among different artists and songs. Proximity is defined by pure music style from the songs from one artist to another.
+
+3) Influence data among the different artists (influence_data.csv). This dataset includes relationship/ influence between the different artists and includes 42770 records with the following features: 
+
+- influencer_id
+- influencer_name
+- influencer_main_genre
+- influencer_active_start
+- follower_id
+- follower_name
+- follower_main_genre
+- follower_active_start
+
+This last set helps stablish the relationships in a graph or edges between the different artists.
+
+# Environment
+## Load libraries
+This step loads the main libraries used in the exercise.
+```{r, warning=FALSE, message=FALSE}
+#install.packages("tidyverse")
+#install.packages("igraph")
+#install.packages("caret")
+#install.packages("PerformanceAnalytics")
+#install.packages("networkD3")
+
+library(tidyverse)
+library(igraph)
+library(caret)
+library(PerformanceAnalytics)
+library(networkD3)
+```
+
+```{r}
+theme_set(theme_minimal(base_size = 20))
+```
+
+## Load data
+Load up of the data as described at the start of this file.
+```{r, warning=FALSE, message=FALSE}
+data_music <- read_csv('data/full_music_data.csv')
+data_influence <- read_csv('data/influence_data.csv')
+data_artist <- read_csv('data/data_by_artist.csv')
+```
+In the next steps there is a minor processing of the dataset. Data from the source is already curated and thus the processing itself is minor.
+
+Reformat of the dataframes.
+
+```{r}
+data_influence <- data_influence %>% 
+  mutate(follower_main_genre = str_remove_all(follower_main_genre, ';'))
+
+artist_genre <- data_influence %>% 
+  select(`follower_name`, `follower_main_genre`) %>% 
+  unique() %>% 
+  rename(`artist_names`=`follower_name`, `main_genre`=`follower_main_genre`)
+
+data_music_genre <- data_music %>%
+  transform(artists_id = strsplit(str_trim(str_remove_all(artists_id, '[\\[\\]]'), side='both'), ","),
+            artist_names = strsplit(str_trim(str_remove_all(artist_names, '[\\[\\]]'), side='both'), ",")) %>%
+  unnest(artist_names) %>% 
+  mutate(artist_names = gsub('^.|.$', '', artist_names)) %>% 
+  inner_join(artist_genre, by="artist_names")
+```
+
+Unknown artist identification.
+
+```{r}
+unique_a <- unique(data_artist['artist_id'])
+unique_b <- unique(data_influence['influencer_id'])
+unique_c <- unique(data_influence['follower_id'])
+
+table(unlist(unique_b) %in% unlist(unique_a))
+table(unlist(unique_c) %in% unlist(unique_a))
+```
+The id for this artist:
+```{r}
+unknown_artist <- unique_c[!(unlist(unique_c) %in% unlist(unique_a)),]
+```
+
+## Calculate `PCA`
+In this chapter PCA is applied to get a representation via 3 principal components for each of the artists.
+a) Scaling is required prior to PCA.
+b) PCAs are saved as features in data_artist dataframe.
+c) Generated a dataframe where each influence record has a vectorial representation of both followers and influencers.
+d) Calculation of weights of relationships by means of Eucledian distance of the vectors between influencers and followers.
+
+
+```{r}
+# colnames(data_artist)
+columns_to_normalize <- c("danceability", "energy", "valence", "tempo", "loudness", "mode", "key", "acousticness", "instrumentalness", "liveness", "speechiness", "duration_ms", "popularity", "count")
+
+data <- data_artist[, columns_to_normalize]
+tranformation_1 <- preProcess(data, method=c("scale", "pca"), pcaComp=3)
+data_artist$PC1 <- predict(tranformation_1, data)[['PC1']]
+data_artist$PC2 <- predict(tranformation_1, data)[['PC2']]
+data_artist$PC3 <- predict(tranformation_1, data)[['PC3']]
+
+data_influence_transformed <- data_influence %>% 
+  inner_join(data_artist[, c('artist_id', 'PC1', 'PC2', 'PC3')], by = c("influencer_id" = "artist_id")) %>% 
+  inner_join(data_artist[, c('artist_id', 'PC1', 'PC2', 'PC3')], by = c("follower_id" = "artist_id"), suffix = c("_influencer", "_follower")) %>% 
+  rowwise() %>%
+  mutate(`weight` = dist(matrix(c(`PC1_influencer`, `PC1_follower`, `PC2_influencer`, `PC2_follower`, `PC3_influencer`, `PC3_follower`), nrow = 2)))
+```
+
+
+```{r}
+vars <- apply(tranformation_1$rotation, 2, var)
+vars/sum(vars)
+
+pc1 <- sum(tranformation_1$rotation[,1])
+pc2 <- sum(tranformation_1$rotation[,2])
+pc3 <- sum(tranformation_1$rotation[,3])
+
+pc1/sum(pc1+pc2+pc3)
+```
+
+
+## Create the graph
+In this case the graph is created and details over nodes and edges are retrieved.
+```{r}
+data_influence_edges <- data_influence_transformed %>% 
+  rename(from=influencer_id, to=follower_id) %>% 
+  relocate(from, to, weight)
+
+data_artist_vertices <- data_artist %>% 
+  rename(name=artist_name) %>% 
+  relocate(artist_id)
+
+g <- graph_from_data_frame(d=data_influence_edges, vertices=data_artist_vertices, directed=TRUE) 
+class(g)
+ecount(g)
+vcount(g)
+g
+```
+The description of an igraph object starts with up to four letters, in our case three:
+
+1. D  for a directed graph.
+2. N for a named graph (where nodes have a name attribute).
+3. W for a weighted graph (where edges have a weight attribute): when each connection does not have the same importance.
+
+The two numbers that follow (5854 42752) refer to the number of nodes and edges in the graph. The description also lists node & edge attributes.
+* (v/c) - vertex-level character attribute
+* (v/n) - vertex-level numeric attribute
+* (e/n) - edge-level numeric attribute
+* (e/n) - edge-level character attribute
+
+```{r}
+# https://stackoverflow.com/questions/44892923/how-to-increase-length-of-edges-when-plotting-a-graph-in-r
+# https://stackoverflow.com/questions/32012080/changing-the-spacing-between-vertices-in-igraph-in-r
+# test.layout <- layout_(g, with_dh(weight.edge.lengths = edge_density(g)/1000))
+# plot(g, layout = test.layout)
+# plot(g)
+```
+
+# EDA
+In this EDA step ggplot is used to generate a series of insightful charts:
+## Duration evolution
+a) Song duration over time per genre.
+b) Song duration over time.
+```{r}
+top_ <- 5
+
+sorted_music_genre <- data_music_genre %>% 
+  group_by(`main_genre`) %>% 
+  tally() %>% 
+  arrange(desc(n)) %>% 
+  select(`main_genre`) %>% 
+  unlist(use.names=FALSE)
+
+data_music_genre %>% 
+  mutate(main_genre = factor(main_genre, levels=sorted_music_genre)) %>% 
+  filter(main_genre %in% sorted_music_genre[1:top_]) %>% 
+  group_by(`year`, `main_genre`) %>% 
+  summarise(mean=mean(duration_ms)/1000/60) %>% 
+  ggplot(aes(x=`year`, y=`mean`, color=`main_genre`)) +
+  geom_line() +
+  ylim(c(1.5, 5)) +
+  labs(title='Song duration over time per genre', x=NULL, y='Minutes', color='Genre')+
+  theme_light()
+
+data_music_genre %>% 
+  mutate(main_genre = factor(main_genre, levels=sorted_music_genre)) %>% 
+  filter(main_genre %in% sorted_music_genre[1:top_]) %>% 
+  ggplot(aes(x=`year`, y=`duration_ms`/1000/60)) +
+  geom_smooth(aes(color=`main_genre`), method="lm", formula=y~poly(x, 3, raw=TRUE)) +
+  ylim(c(0, 5)) +
+  labs(title='Song duration over time', x=NULL, y='Minutes', color='Genre') +
+  theme_light()
+```
+
+## Tempo evolution
+c) Song tempo over time.
+```{r}
+data_music_genre %>% 
+  mutate(main_genre = factor(main_genre, levels=sorted_music_genre)) %>% 
+  filter(main_genre %in% sorted_music_genre[1:top_]) %>% 
+  ggplot(aes(x=`year`, y=`tempo`)) +
+  geom_smooth(aes(color=`main_genre`), method="lm", formula=y~poly(x, 3, raw=TRUE)) +
+  # ylim(c(0, 5)) +
+  labs(title='Song tempo over time', x=NULL, y='Tempo', color='Genre')
+```
+
+## Top influencer artists
+c) Top influencer artists. 
+d) Top influencer artists by genre.
+
+```{r}
+top_influencers_ <- 5
+
+data_influence_sorted <- data_influence %>% 
+  group_by(`influencer_name`) %>% 
+  tally() %>% 
+  arrange(desc(n)) %>% 
+  select(`influencer_name`) %>% 
+  unlist(use.names=FALSE)
+
+data_influence %>% 
+  mutate(influencer_name = factor(influencer_name, levels=data_influence_sorted)) %>% 
+  dplyr::filter(influencer_name %in% data_influence_sorted[1:top_]) %>% 
+  group_by(`influencer_name`) %>% 
+  tally() %>% 
+  ggplot(aes(x=`influencer_name`, y=`n`)) +
+  geom_col() +
+  coord_flip() +
+  scale_x_discrete(limits = rev) +
+  labs(title='Top influencer artists', x=NULL, y='Number of influenced')
+
+data_influence %>% 
+  mutate(follower_main_genre = factor(follower_main_genre, levels=sorted_music_genre)) %>% 
+  filter(follower_main_genre %in% sorted_music_genre[1:top_]) %>% 
+  group_by(`follower_main_genre`, `influencer_name`) %>%
+  tally() %>% 
+  arrange(desc(n)) %>% 
+  slice(1:top_influencers_) %>% 
+  ggplot(aes(x=reorder(`influencer_name`, -n, sum), y=`n`)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+  scale_x_discrete(limits = rev) +
+  facet_wrap(`follower_main_genre` ~ ., scales="free_y") +
+  labs(title='Top influencer artists by genre', x=NULL, y='Number of influenced')
+```
+
+## Source of inspiration by genre
+e) Source of inspiration by genre
+
+```{r}
+data_influence %>% 
+  mutate(influencer_main_genre = factor(influencer_main_genre, levels=sorted_music_genre),
+         follower_main_genre = factor(follower_main_genre, levels=sorted_music_genre)) %>% 
+  filter(influencer_main_genre %in% sorted_music_genre[1:top_], follower_main_genre %in% sorted_music_genre[1:top_]) %>% 
+  group_by(`influencer_main_genre`, `follower_main_genre`) %>%
+  tally() %>% 
+  ggplot(aes(x=reorder(`influencer_main_genre`, -n, sum), y=reorder(`follower_main_genre`, -n, sum), fill=log(`n`))) +
+  geom_tile() +
+  scale_x_discrete(guide = guide_axis(angle = 90)) +
+  labs(title='Source of inspiration by genre', x='Influencer', y='Follower', fill=NULL) +
+  scale_fill_gradient(low="#F2D544", high="#025959")
+```
+
+
+# Description
+
+## Order (number of vertices)
+Used to count the number of vertices in a network
+https://igraph.org/r/doc/gorder.html
+
+```{r}
+gorder(g)
+```
+
+## Size of the graph (number of edges)
+Used to count the number of edges in a network
+https://igraph.org/r/doc/gsize.html
+
+```{r}
+gsize(g)
+```
+
+## Degree distribution
+The degree of a vertex is its most basic structural property, the number of its adjacent edges. Understood in this cases as the number of adjacent artists to a certain artist.
+```{r}
+deg <- degree(g, mode="all", loop=FALSE)
+hist(deg, main='Total degree distribution')
+```
+
+## Degree description
+Summary calculation for degree distribution. As seen this is quite skewed.
+```{r}
+summary(deg)
+```
+
+## Network Diameter and Average Path Length
+Calculation for network diameter.
+```{r}
+diameter(g)
+```
+
+## Average path length of the graph
+Calculation for network path length.
+```{r}
+mean_distance(g)
+```
+
+## Shortest paths between vertices
+Distances calculates the length of all the shortest paths from or to the vertices in the network. shortest_paths calculates one shortest path (the path itself, and not just its length) from or to the given vertex.
+```{r}
+distance_table(g, directed = TRUE)
+```
+
+## Centrality Measurements
+
+In the case of `closeness`, there is a *warning* while having a disconnected graph: \
+`closeness centrality is not well-defined for disconnected graphs`\
+This can be saved, by finding the biggest subgraph, and only calculate the `closeness` of that.
+
+```{r}
+# https://stackoverflow.com/a/55891333/3780957
+g_components <- components(g, mode="strong")
+
+biggest_component <- which.max(g_components$csize)
+g_main <- induced_subgraph(g, which(g_components$membership == biggest_component))
+cl <- closeness(g_main, normalized=TRUE)
+head(sort(cl, decreasing=TRUE), 5)
+```
+
+To follow the class exercise, the following line ignores for the `closeness` the `warning`, and executes the code for the full graph.
+- The degree of a vertex is its most basic structural property, the number of its adjacent edges.
+- The vertex and edge betweenness are (roughly) defined by the number of geodesics (shortest paths) going through a vertex or an edge. 
+- Closeness centrality measures how many steps is required to access every other vertex from a given vertex.
+- Page_rank Calculates the Google PageRank for the specified vertices.
+
+```{r}
+dg <- degree(g, mode = "total", loop=FALSE, normalized=TRUE)
+bt <- betweenness(g, normalized=TRUE)
+cl <- closeness(g, normalized=TRUE)
+pr <- page_rank(g)$vector
+
+cat('Degree\n')
+head(sort(dg, decreasing=TRUE), 5)
+
+cat('\n\nBetweenness\n')
+head(sort(bt, decreasing=TRUE), 5)
+
+cat('\n\nCloseness\n')
+head(sort(cl, decreasing=TRUE), 5)
+
+cat('\n\nPage Rank\n')
+head(sort(pr, decreasing=TRUE), 5)
+```
+
+### Correlation
+
+The following plot, checks the correlation between the tree calculated centrality measures: \
+* Degree \
+* Betweenness \
+* Closeness \
+* Page Rank \
+There is a slight positive correlation of `0.34` between `degree` and `betweenness`.\
+The values of the metrics are not normalized neither scaled.
+
+```{r}
+results <- data.frame(Degree=dg, Betweenness=bt, Closeness=cl, `Page Rank`=pr) 
+chart.Correlation(results, histogram=TRUE, pch=19)
+```
+
+### Top `Betweenness`
+
+List of artists with the largest `betweenness` centrality. 
+This measure identifies the control of an artist on the communication between other actors in the network.
+```{r}
+top_betweenness <- head(sort(bt, decreasing=TRUE), 10)
+
+data_artist_vertices$bt <- bt
+
+data_artist_vertices %>% 
+  filter(`name` %in% names(top_betweenness)) %>% 
+  select(`name`, `popularity`, `count`) %>% 
+  arrange(factor(`name`, levels = names(top_betweenness))) %>% 
+  rename(`Artist name` = `name`, `Popularity` = `popularity`, `Number of songs` = `count`)
+```
+
+# Comunity detection
+Using https://igraph.org/r/doc/cluster_louvain.html \
+More details at https://en.wikipedia.org/wiki/Louvain_method
+\
+The different methods for finding communities, they all return a communities object: `cluster_edge_betweenness`, `cluster_fast_greedy`, `cluster_label_prop`, `cluster_leading_eigen`, `cluster_louvain`, `cluster_optimal`, `cluster_spinglass`, `cluster_walktrap.`
+
+```{r}
+# Communities can only be calculated for undirected graphs
+g_undirected <- as.undirected(g, mode='collapse', edge.attr.comb="max")
+```
+
+```{r}
+cluster_test <- list(
+  # cluster_edge_betweenness=cluster_edge_betweenness(g_undirected), 
+  cluster_fast_greedy=cluster_fast_greedy(g_undirected),
+  # cluster_label_prop=cluster_label_prop(g_undirected),
+  cluster_leading_eigen=cluster_leading_eigen(g_undirected),
+  cluster_louvain=cluster_louvain(g_undirected),
+  # cluster_optimal=cluster_optimal(g_undirected) # Super slow
+  # cluster_spinglass=cluster_spinglass(g), # Cannot work with unconnected graph, Invalid value
+  cluster_walktrap=cluster_walktrap(g_undirected),
+  walktrap.community=walktrap.community(g_undirected)
+)
+
+lapply(cluster_test, modularity)
+```
+
+Best performance community calculation method:
+
+```{r}
+g_communities <- cluster_test$cluster_louvain
+```
+
+`modularity` measures how good the division is, or how separated are the different vertex types from each other.
+Modularity measures the strength of division of a network into modules, in this cases actor type clusters. 
+```{r}
+modularity(g_communities)
+```
+
+Calculates the `modularity` of a graph with respect to the given `membership` vector.
+
+```{r}
+modularity(g_communities, membership(g_communities))
+```
+
+Number of communities of actors that exist using cluster_louvain community calculation method:
+
+```{r}
+length(g_communities)
+```
+
+Number of actors inside a community. It can be seen that most of the communities group a large number of actors within.
+
+```{r}
+hist(sizes(g_communities), main='Number of actors inside a community', xlab='Members')
+```
+
+Length per `community`
+
+```{r}
+x <- sapply(g_communities[], length)
+summary(x)
+which.max(x)
+```
+
+## Validation if the vertex labels per community makes sense
+In this case it makes sense to check if the actors within a certain community are making sense or not.
+```{r}
+g_communities[]$`66`
+```
+
+## Filter
+
+Remove vertices
+<https://stackoverflow.com/questions/29784095/conditional-removing-of-vertices-based-on-attributes-in-r>
+<https://stackoverflow.com/questions/53696798/filter-igraph-object-by-vertex-attribute-value>
+
+From
+<https://stackoverflow.com/questions/3305669/how-do-i-find-the-edges-of-a-vertex-using-igraph-and-r>
+
+In terms of quick analysis of the network it would make sense to filter the actors to a given criteria and get a nodal representation. In this case the representation is without the vertices.
+```{r}
+g1 <- induced_subgraph(g, V(g)$danceability >= 0.85)
+g2 <- induced_subgraph(g, V(g)$tempo >= 180)
+plot(g1)
+plot(g2)
+```
+
+Remove edges
+<https://stackoverflow.com/questions/25413633/igraph-in-r-how-to-select-edges-based-on-incident-vertex-attributes>
+<https://igraph.org/r/doc/subgraph.html>
+
+Subgraph creates a subgraph of a graph, containing only the specified vertices and all the edges among them. In this case it is possible to check the subgraph for a certain artist.
+```{r}
+filter_idx <- match("Enrique Iglesias", V(g)$name)
+filter_edges <- as.numeric(E(g)[from(filter_idx)])
+g1 <- subgraph.edges(g, filter_edges, delete.vertices = TRUE)
+                       
+plot(g1)
+```
+
+## Topology-Ego Filter
+https://stackoverflow.com/a/39992337/3780957
+
+In this next case the desire is to find the vertices not farther than a given limit from another fixed vertex or neighbors to a certain artist. In this case first relationships.
+```{r}
+# g_ego <- make_ego_graph(g, order = 1, nodes = 'Gloria Estefan', mode = "all", mindist = 0)
+g_ego <- make_ego_graph(g, order = 1, nodes = 'Enrique Iglesias', mode = "all", mindist = 0)
+# g_ego <- make_ego_graph(g, order = 1, nodes = 'Ricky Martin', mode = "all", mindist = 0)
+# g_ego <- make_ego_graph(g, order = 1, nodes = 'Madonna', mode = "all", mindist = 0)
+g_ego <- g_ego[[1]]
+plot(g_ego)
+```
+
+### Interactive plot
+https://juanitorduz.github.io/text-mining-networks-and-visualization-plebiscito-tweets/
+
+In this case the team tried to enhance the previous representation via an interactive plot of relationships to a given artist.
+```{r}
+plot_network_3D <- function(network, arrow=TRUE) {
+  # Store the degree.
+  V(network)$degree <- strength(graph = network)
+  # Create networkD3 object.
+  network.D3 <- igraph_to_networkD3(g = network)
+  # Define node size.
+  network.D3$nodes <- network.D3$node %>% mutate(Degree = V(network)$degree, Group = 1)
+  # Define edges width. 
+  network.D3$links$Width <- 1
+  
+  forceNetwork(
+    Links = network.D3$links, 
+    Nodes = network.D3$nodes, 
+    Source = 'source', 
+    Target = 'target',
+    NodeID = 'name',
+    Group = 'Group',
+    opacity = 0.9,
+    Value = 'Width',
+    Nodesize = 'Degree',
+    # We input a JavaScript function.
+    linkWidth = JS("function(d) { return Math.sqrt(d.value); }"), 
+    fontSize = 12,
+    arrows = arrow,
+    zoom = TRUE, 
+    opacityNoHover = 1
+  )
+}
+
+plot(g_ego, edge.arrow.size=.2)
+plot_network_3D(g_ego)
+```
+
+## Shortest path
+In this case the interest is to find the shortest path from one artist to another. The all_shortest_paths function helps retrieve visually the shortest path from one selected artist to another.
+```{r}
+short <- all_shortest_paths(g, from='Enrique Iglesias', to = 'Wolfgang Amadeus Mozart', mode = "all")
+g1 <- induced_subgraph(g, short$res[[1]])
+plot(g1)
+plot_network_3D(g1)
+```
+
+## Color boundary for communities
+https://stackoverflow.com/questions/37374355/how-can-i-plot-igraph-community-with-defined-colors
+
+In this case for the selected artist of interest the desire is to understand its closest relationships and the communities where they belong.
+```{r}
+g_undirected <- as.undirected(g_ego, mode='collapse', edge.attr.comb="max")
+wc <- cluster_louvain(g_undirected)
+
+layout <-layout.fruchterman.reingold(g_ego)
+par(mar=c(0,0,0,0)+.1)
+
+plot(wc, g_ego, layout=layout, vertex.size=5,  edge.arrow.size=.2)
+```
+
+# Predict edges
+
+Based on a hierarchical random graph model.\
+`predict_edges` uses a hierarchical random graph model to predict missing edges from a network. This is done by sampling hierarchical models around the optimum model, proportionally to their likelihood.
+
+https://igraph.org/r/doc/predict_edges.html
+
+Based on a smaller graph, centered for the selected artist it is feasible to compute the potential missing edges.
+
+```{r}
+hrg <- fit_hrg(g_ego)
+hrg
+```
+
+```{r}
+g_ego_predicted <- predict_edges(g_ego, hrg=hrg)
+```
