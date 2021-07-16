@@ -358,7 +358,11 @@ community_measurements <- function(g_base, g_communities){
 # year_start <- input$year_start
 # year_end <- input$year_end
 
-ego_evolution <- function(g_ego, artist, year_start, year_end){
+ego_evolution <- function(g_ego, artist, year_end){
+    
+    # Fix the issue of years before the available
+    year_start <- min(E(g_ego)$follower_active_start)
+    year_end <- max(year_start, year_end)
     
     # Evolution of the degree
     artist_degree_history = data.frame(year=numeric(0), degree=numeric(0))
@@ -369,7 +373,7 @@ ego_evolution <- function(g_ego, artist, year_start, year_end){
         deg <- degree(g1, mode="all", loop=FALSE)
 
         artist_degree_history = artist_degree_history %>%
-            add_row(year = year_, degree = as.numeric(deg[names(deg) == artist_]))
+            add_row(year = year_, degree = as.numeric(deg[names(deg) == artist]))
 
     }
     
@@ -539,8 +543,7 @@ ui <- navbarPage(title = "Music Network",
                                                    plotOutput('community_measurements__ego__plot_size')
                                               ),
                                               tabPanel("Evolution", 
-                                                   sliderInput('year_start', 'Start year', min = 1960, max = 2021, value = 1960, animate =TRUE, step=5),
-                                                   sliderInput('year_end', 'End year', min = 1960, max = 2021, value = 2021, animate =TRUE, step=5),
+                                                   sliderInput('year_end', 'Followers up to year', min = 1950, max = 2021, value = 2021, animate =TRUE, step=5),
                                                    br(),
                                                    br(),
                                                    span('Evolution of the degree for your favorite artist'),
@@ -713,19 +716,19 @@ server <- function(input, output) {
     # input$year_end <- 2020
     
     # For ego evolution
-    observeEvent(c(input$artist, input$year_start, input$year_end), ignoreNULL = FALSE, ignoreInit = FALSE, {
+    observeEvent(c(input$artist, input$year_end), ignoreNULL = FALSE, ignoreInit = FALSE, {
         # Subgraph
         g_ego <- make_ego_graph(g, order = 1, nodes = input$artist, mode = "all", mindist = 0)
         g_ego <- g_ego[[1]]
         
         # g_ego_filter <- subgraph.edges(g_ego, eids = E(g_ego)[E(g_ego)$follower_active_start <= year_], delete.vertices = TRUE)
         
-        ego_evolution__list <- ego_evolution(g_ego, input$artist, input$year_start, input$year_end)
+        ego_evolution__list <- ego_evolution(g_ego, input$artist, input$year_end)
         
         g_ego_filtered <- ego_evolution__list$graph
         
         ego_evolution__list__graph_stats <- graph_stats(g_ego_filtered)
-        evo_evolution__plot_3D <- plot_network_3D(g_ego_filtered)
+        # evo_evolution__plot_3D <- plot_network_3D(g_ego_filtered)
         
         # Outputs
         output$ego_evolution__list__plot_g_ego <- renderPlot(plot(g_ego_filtered, vertex.size=5,  edge.arrow.size=.2), height = 500, width = 1000)
