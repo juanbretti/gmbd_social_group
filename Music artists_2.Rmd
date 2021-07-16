@@ -125,6 +125,7 @@ This last set helps stablish the relationships in a graph or edges between the d
 # Environment
 ## Load libraries
 This step loads the main libraries used in the exercise.
+
 ```{r, warning=FALSE, message=FALSE}
 #install.packages("tidyverse")
 #install.packages("igraph")
@@ -145,11 +146,13 @@ theme_set(theme_minimal(base_size = 20))
 
 ## Load data
 Load up of the data as described at the start of this file.
+
 ```{r, warning=FALSE, message=FALSE}
 data_music <- read_csv('data/full_music_data.csv')
 data_influence <- read_csv('data/influence_data.csv')
 data_artist <- read_csv('data/data_by_artist.csv')
 ```
+
 In the next steps there is a minor processing of the dataset. Data from the source is already curated and thus the processing itself is minor.
 
 Reformat of the dataframes.
@@ -181,7 +184,9 @@ unique_c <- unique(data_influence['follower_id'])
 table(unlist(unique_b) %in% unlist(unique_a))
 table(unlist(unique_c) %in% unlist(unique_a))
 ```
+
 The id for this artist:
+
 ```{r}
 unknown_artist <- unique_c[!(unlist(unique_c) %in% unlist(unique_a)),]
 ```
@@ -192,7 +197,6 @@ a) Scaling is required prior to PCA.
 b) PCAs are saved as features in data_artist dataframe.
 c) Generated a dataframe where each influence record has a vectorial representation of both followers and influencers.
 d) Calculation of weights of relationships by means of Eucledian distance of the vectors between influencers and followers.
-
 
 ```{r}
 # colnames(data_artist)
@@ -211,7 +215,6 @@ data_influence_transformed <- data_influence %>%
   mutate(`weight` = dist(matrix(c(`PC1_influencer`, `PC1_follower`, `PC2_influencer`, `PC2_follower`, `PC3_influencer`, `PC3_follower`), nrow = 2)))
 ```
 
-
 ```{r}
 vars <- apply(tranformation_1$rotation, 2, var)
 vars/sum(vars)
@@ -223,9 +226,9 @@ pc3 <- sum(tranformation_1$rotation[,3])
 pc1/sum(pc1+pc2+pc3)
 ```
 
-
 ## Create the graph
 In this case the graph is created and details over nodes and edges are retrieved.
+
 ```{r}
 data_influence_edges <- data_influence_transformed %>% 
   rename(from=influencer_id, to=follower_id) %>% 
@@ -241,6 +244,7 @@ ecount(g)
 vcount(g)
 g
 ```
+
 The description of an igraph object starts with up to four letters, in our case three:
 
 1. D  for a directed graph.
@@ -266,6 +270,7 @@ In this EDA step ggplot is used to generate a series of insightful charts:
 ## Duration evolution
 a) Song duration over time per genre.
 b) Song duration over time.
+
 ```{r}
 top_ <- 5
 
@@ -299,6 +304,7 @@ data_music_genre %>%
 
 ## Tempo evolution
 c) Song tempo over time.
+
 ```{r}
 data_music_genre %>% 
   mutate(main_genre = factor(main_genre, levels=sorted_music_genre)) %>% 
@@ -366,7 +372,6 @@ data_influence %>%
   scale_fill_gradient(low="#F2D544", high="#025959")
 ```
 
-
 # Description
 
 ## Order (number of vertices)
@@ -387,6 +392,7 @@ gsize(g)
 
 ## Degree distribution
 The degree of a vertex is its most basic structural property, the number of its adjacent edges. Understood in this cases as the number of adjacent artists to a certain artist.
+
 ```{r}
 deg <- degree(g, mode="all", loop=FALSE)
 hist(deg, main='Total degree distribution')
@@ -394,24 +400,28 @@ hist(deg, main='Total degree distribution')
 
 ## Degree description
 Summary calculation for degree distribution. As seen this is quite skewed.
+
 ```{r}
 summary(deg)
 ```
 
 ## Network Diameter and Average Path Length
 Calculation for network diameter.
+
 ```{r}
 diameter(g)
 ```
 
 ## Average path length of the graph
 Calculation for network path length.
+
 ```{r}
 mean_distance(g)
 ```
 
 ## Shortest paths between vertices
 Distances calculates the length of all the shortest paths from or to the vertices in the network. shortest_paths calculates one shortest path (the path itself, and not just its length) from or to the given vertex.
+
 ```{r}
 distance_table(g, directed = TRUE)
 ```
@@ -476,6 +486,7 @@ chart.Correlation(results, histogram=TRUE, pch=19)
 
 List of artists with the largest `betweenness` centrality. 
 This measure identifies the control of an artist on the communication between other actors in the network.
+
 ```{r}
 top_betweenness <- head(sort(bt, decreasing=TRUE), 10)
 
@@ -523,6 +534,7 @@ g_communities <- cluster_test$cluster_louvain
 
 `modularity` measures how good the division is, or how separated are the different vertex types from each other.
 Modularity measures the strength of division of a network into modules, in this cases actor type clusters. 
+
 ```{r}
 modularity(g_communities)
 ```
@@ -555,20 +567,22 @@ which.max(x)
 
 ## Validation if the vertex labels per community makes sense
 In this case it makes sense to check if the actors within a certain community are making sense or not.
+
 ```{r}
 g_communities[]$`66`
 ```
 
 ## Filter
 
-Remove vertices
-<https://stackoverflow.com/questions/29784095/conditional-removing-of-vertices-based-on-attributes-in-r>
-<https://stackoverflow.com/questions/53696798/filter-igraph-object-by-vertex-attribute-value>
-
-From
-<https://stackoverflow.com/questions/3305669/how-do-i-find-the-edges-of-a-vertex-using-igraph-and-r>
+References:
+* Remove vertices
+ - <https://stackoverflow.com/questions/29784095/conditional-removing-of-vertices-based-on-attributes-in-r>
+ - <https://stackoverflow.com/questions/53696798/filter-igraph-object-by-vertex-attribute-value>
+* From
+ - <https://stackoverflow.com/questions/3305669/how-do-i-find-the-edges-of-a-vertex-using-igraph-and-r>
 
 In terms of quick analysis of the network it would make sense to filter the actors to a given criteria and get a nodal representation. In this case the representation is without the vertices.
+
 ```{r}
 g1 <- induced_subgraph(g, V(g)$danceability >= 0.85)
 g2 <- induced_subgraph(g, V(g)$tempo >= 180)
@@ -580,7 +594,8 @@ Remove edges
 <https://stackoverflow.com/questions/25413633/igraph-in-r-how-to-select-edges-based-on-incident-vertex-attributes>
 <https://igraph.org/r/doc/subgraph.html>
 
-Subgraph creates a subgraph of a graph, containing only the specified vertices and all the edges among them. In this case it is possible to check the subgraph for a certain artist.
+Subgraph creates a `subgraph` of a graph, containing only the specified vertices and all the edges among them. In this case it is possible to check the subgraph for a certain artist.
+
 ```{r}
 filter_idx <- match("Enrique Iglesias", V(g)$name)
 filter_edges <- as.numeric(E(g)[from(filter_idx)])
@@ -593,6 +608,7 @@ plot(g1)
 https://stackoverflow.com/a/39992337/3780957
 
 In this next case the desire is to find the vertices not farther than a given limit from another fixed vertex or neighbors to a certain artist. In this case first relationships.
+
 ```{r}
 # g_ego <- make_ego_graph(g, order = 1, nodes = 'Gloria Estefan', mode = "all", mindist = 0)
 g_ego <- make_ego_graph(g, order = 1, nodes = 'Enrique Iglesias', mode = "all", mindist = 0)
@@ -606,6 +622,7 @@ plot(g_ego)
 https://juanitorduz.github.io/text-mining-networks-and-visualization-plebiscito-tweets/
 
 In this case the team tried to enhance the previous representation via an interactive plot of relationships to a given artist.
+
 ```{r}
 plot_network_3D <- function(network, arrow=TRUE) {
   # Store the degree.
@@ -642,6 +659,7 @@ plot_network_3D(g_ego)
 
 ## Shortest path
 In this case the interest is to find the shortest path from one artist to another. The all_shortest_paths function helps retrieve visually the shortest path from one selected artist to another.
+
 ```{r}
 short <- all_shortest_paths(g, from='Enrique Iglesias', to = 'Wolfgang Amadeus Mozart', mode = "all")
 g1 <- induced_subgraph(g, short$res[[1]])
@@ -653,6 +671,7 @@ plot_network_3D(g1)
 https://stackoverflow.com/questions/37374355/how-can-i-plot-igraph-community-with-defined-colors
 
 In this case for the selected artist of interest the desire is to understand its closest relationships and the communities where they belong.
+
 ```{r}
 g_undirected <- as.undirected(g_ego, mode='collapse', edge.attr.comb="max")
 wc <- cluster_louvain(g_undirected)
