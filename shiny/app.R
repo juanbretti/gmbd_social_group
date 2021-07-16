@@ -353,6 +353,46 @@ community_measurements <- function(g_base, g_communities){
     ))
 }
 
+# g_ego <- g_ego
+# artist = input$artist
+# year_start <- input$year_start
+# year_end <- input$year_end
+
+ego_evolution <- function(g_ego, artist, year_start, year_end){
+    
+    # Evolution of the degree
+    artist_degree_history = data.frame(year=numeric(0), degree=numeric(0))
+    
+    for (year_ in seq(year_start, year_end, by=5)) {
+
+        g1 <- subgraph.edges(g_ego, E(g_ego)[E(g_ego)$follower_active_start <= year_])
+        deg <- degree(g1, mode="all", loop=FALSE)
+
+        artist_degree_history = artist_degree_history %>%
+            add_row(year = year_, degree = as.numeric(deg[names(deg) == artist_]))
+
+    }
+    
+    # Current `end_year` plot
+    g1 <- subgraph.edges(g_ego, E(g_ego)[E(g_ego)$follower_active_start <= year_end])
+    deg <- degree(g1, mode="all", loop=FALSE)
+    
+    # Plots
+    plot_histogram <- ggplot(as.data.frame(deg), aes(x=deg)) + 
+        geom_histogram() +
+        labs(title=paste('Total degree distribution before year', year_end), x='Degree', y='Count')
+    
+    plot_history <- ggplot(artist_degree_history, aes(x=year, y=degree)) +
+        geom_line() +
+        xlim(c(year_start, year_end))
+    
+    return(list(
+        graph=g1,
+        plot_histogram=plot_histogram,
+        plot_history=plot_history
+    ))
+}
+
 # # g_ego <- make_ego_graph(g, order = 1, nodes = 'Ricky Martin', mode = "all", mindist = 0)
 # # g_ego <- make_ego_graph(g, order = 1, nodes = 'Madonna', mode = "all", mindist = 0)
 # g_ego <- make_ego_graph(g, order = 1, nodes = 'Enrique Iglesias', mode = "all", mindist = 0)
@@ -497,6 +537,27 @@ ui <- navbarPage(title = "Music Network",
                                                    br(),
                                                    span('Community size'),
                                                    plotOutput('community_measurements__ego__plot_size')
+                                              ),
+                                              tabPanel("Evolution", 
+                                                   sliderInput('year_start', 'Start year', min = 1960, max = 2021, value = 1960, animate =TRUE, step=5),
+                                                   sliderInput('year_end', 'End year', min = 1960, max = 2021, value = 2021, animate =TRUE, step=5),
+                                                   br(),
+                                                   br(),
+                                                   span('Evolution of the degree for your favorite artist'),
+                                                   plotOutput('ego_evolution__list__plot_g_ego', height = 500),
+                                                   # forceNetworkOutput('ego_evolution__list__plot_g_ego', height = 500),
+                                                   br(),
+                                                   span('General metrics'),
+                                                   tableOutput('ego_evolution__list__graph_stats'),
+                                                   br(),
+                                                   fluidRow(
+                                                       column(6,
+                                                           span('Histogram of the degree'),
+                                                           plotOutput('ego_evolution__list__plot_histogram')),
+                                                       column(6,
+                                                           span('Evolution of the degree'),
+                                                           plotOutput('ego_evolution__list__plot_history'))
+                                                   )
                                               )
                                   )
                               )
@@ -612,17 +673,18 @@ server <- function(input, output) {
         
         # Subgraph
         g_ego <- make_ego_graph(g, order = 1, nodes = input$artist, mode = "all", mindist = 0)
-
+        g_ego <- g_ego[[1]]
+        
         # Community
-        community_detection__ego <- community_detection(g_ego[[1]])
-        community_measurements__ego <- community_measurements(g_ego[[1]], community_detection__ego$cluster$cluster_louvain)
+        community_detection__ego <- community_detection(g_ego)
+        community_measurements__ego <- community_measurements(g_ego, community_detection__ego$cluster$cluster_louvain)
         
         # Calculation
-        graph_stats__ego <- graph_stats(g_ego[[1]])
-        centrality_measurements__ego <- centrality_measurements(g_ego[[1]], input$top)
+        graph_stats__ego <- graph_stats(g_ego)
+        centrality_measurements__ego <- centrality_measurements(g_ego, input$top)
         
         # Animated plot
-        plot_network_3D__ego <- plot_network_3D(g_ego[[1]])
+        plot_network_3D__ego <- plot_network_3D(g_ego)
         
         # Render
         output$graph_stats__df__ego <- renderTable(graph_stats__ego$df)
@@ -642,6 +704,35 @@ server <- function(input, output) {
         output$community_measurements__ego__plot_communities <- renderPlot(plot(p[[1]], p[[2]], layout=p[[3]], vertex.size=5,  edge.arrow.size=.2), height = 800, width = 1200)
         
         output$plot_network_3D__ego <- renderForceNetwork(plot_network_3D__ego)
+        
+    })
+    
+    # input <- NULL
+    # input$artist <- 'Enrique Iglesias'
+    # input$year_start <- 1990
+    # input$year_end <- 2020
+    
+    # For ego evolution
+    observeEvent(c(input$artist, input$year_start, input$year_end), ignoreNULL = FALSE, ignoreInit = FALSE, {
+        # Subgraph
+        g_ego <- make_ego_graph(g, order = 1, nodes = input$artist, mode = "all", mindist = 0)
+        g_ego <- g_ego[[1]]
+        
+        # g_ego_filter <- subgraph.edges(g_ego, eids = E(g_ego)[E(g_ego)$follower_active_start <= year_], delete.vertices = TRUE)
+        
+        ego_evolution__list <- ego_evolution(g_ego, input$artist, input$year_start, input$year_end)
+        
+        g_ego_filtered <- ego_evolution__list$graph
+        
+        ego_evolution__list__graph_stats <- graph_stats(g_ego_filtered)
+        evo_evolution__plot_3D <- plot_network_3D(g_ego_filtered)
+        
+        # Outputs
+        output$ego_evolution__list__plot_g_ego <- renderPlot(plot(g_ego_filtered, vertex.size=5,  edge.arrow.size=.2), height = 500, width = 1000)
+        # output$ego_evolution__list__plot_g_ego <- renderForceNetwork(evo_evolution__plot_3D)
+        output$ego_evolution__list__plot_histogram <- renderPlot(ego_evolution__list$plot_histogram)
+        output$ego_evolution__list__plot_history <- renderPlot(ego_evolution__list$plot_history)
+        output$ego_evolution__list__graph_stats <- renderTable(ego_evolution__list__graph_stats$df)
         
     })
     

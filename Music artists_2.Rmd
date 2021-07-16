@@ -485,7 +485,7 @@ chart.Correlation(results, histogram=TRUE, pch=19)
 ### Top `Betweenness`
 
 List of artists with the largest `betweenness` centrality. 
-This measure identifies the control of an artist on the communication between other actors in the network.
+This measure identifies the control of an artist on the communication between other artists in the network.
 
 ```{r}
 top_betweenness <- head(sort(bt, decreasing=TRUE), 10)
@@ -504,6 +504,12 @@ Using https://igraph.org/r/doc/cluster_louvain.html \
 More details at https://en.wikipedia.org/wiki/Louvain_method
 \
 The different methods for finding communities, they all return a communities object: `cluster_edge_betweenness`, `cluster_fast_greedy`, `cluster_label_prop`, `cluster_leading_eigen`, `cluster_louvain`, `cluster_optimal`, `cluster_spinglass`, `cluster_walktrap.`
+\
+In particular:
+* `cluster_edge_betweenness`, is slow
+* `cluster_spinglass`, cannot work with unconnected graph.
+* `cluster_optimal`, is very slow
+
 
 ```{r}
 # Communities can only be calculated for undirected graphs
@@ -512,9 +518,9 @@ g_undirected <- as.undirected(g, mode='collapse', edge.attr.comb="max")
 
 ```{r}
 cluster_test <- list(
-  # cluster_edge_betweenness=cluster_edge_betweenness(g_undirected), 
+  # cluster_edge_betweenness=cluster_edge_betweenness(g_undirected), # Is very slow
   cluster_fast_greedy=cluster_fast_greedy(g_undirected),
-  # cluster_label_prop=cluster_label_prop(g_undirected),
+  cluster_label_prop=cluster_label_prop(g_undirected),
   cluster_leading_eigen=cluster_leading_eigen(g_undirected),
   cluster_louvain=cluster_louvain(g_undirected),
   # cluster_optimal=cluster_optimal(g_undirected) # Super slow
@@ -526,7 +532,7 @@ cluster_test <- list(
 lapply(cluster_test, modularity)
 ```
 
-Best performance community calculation method:
+Best performance community calculation method, achieved with `cluster_louvain`.
 
 ```{r}
 g_communities <- cluster_test$cluster_louvain
@@ -566,7 +572,8 @@ which.max(x)
 ```
 
 ## Validation if the vertex labels per community makes sense
-In this case it makes sense to check if the actors within a certain community are making sense or not.
+In this case it makes sense to check if the `artists` within a certain community are making sense or not.\
+Makes sense, most of the `artists` are Spanish singers.
 
 ```{r}
 g_communities[]$`66`
@@ -617,6 +624,53 @@ g_ego <- make_ego_graph(g, order = 1, nodes = 'Enrique Iglesias', mode = "all", 
 g_ego <- g_ego[[1]]
 plot(g_ego)
 ```
+
+## Evolution of `degree`
+Study of the evolution of the `degree` for a single artist.
+
+```{r}
+artist_ <- 'Enrique Iglesias'
+year_start_ <- 1980
+year_end_ <- 2020
+
+g_ego <- make_ego_graph(g, order = 1, nodes = artist_, mode = "all", mindist = 0)
+g_ego <- g_ego[[1]]
+
+artist_degree_history = data.frame(year=numeric(0), degree=numeric(0))
+
+for (year_ in seq(year_start_, year_end_, by=10)) {
+  g1 <- subgraph.edges(g_ego, E(g_ego)[E(g_ego)$follower_active_start <= year_])
+  plot(g1, main=paste('Ego graph for', artist_, 'before year', year_))
+  
+  deg <- degree(g1, mode="all", loop=FALSE)
+  hist(deg, main=paste('Total degree distribution for year', year_))
+
+  artist_degree_history = artist_degree_history %>% 
+    add_row(year = year_, degree = as.numeric(deg[names(deg) == artist_]))
+  
+  ggplot(artist_degree_history) +
+    geom_line(aes(x=year, y=degree)) +
+    xlim(c(year_start_, year_end_))
+}
+```
+
+```{r}
+
+E(g_ego)[E(g_ego)$follower_active_start <= 1980]
+
+
+g1 <- make_ring(10)
+g2 <- induced_subgraph(g, 1:7)
+g3 <- subgraph.edges(g, 1:5, delete.vertices = FALSE)
+plot(g1)
+plot(g2)
+plot(g3)
+```
+
+
+
+
+
 
 ### Interactive plot
 https://juanitorduz.github.io/text-mining-networks-and-visualization-plebiscito-tweets/
