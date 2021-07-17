@@ -626,7 +626,8 @@ plot(g_ego)
 ```
 
 ## Evolution of `degree`
-Study of the evolution of the `degree` for a single artist.
+Study of the evolution of the `degree` for a single artist.\
+Based on the variation of the `degree` over time for, as selected 'Enrique Iglesias'.
 
 ```{r}
 artist_ <- 'Enrique Iglesias'
@@ -653,24 +654,6 @@ for (year_ in seq(year_start_, year_end_, by=10)) {
     xlim(c(year_start_, year_end_))
 }
 ```
-
-```{r}
-
-E(g_ego)[E(g_ego)$follower_active_start <= 1980]
-
-
-g1 <- make_ring(10)
-g2 <- induced_subgraph(g, 1:7)
-g3 <- subgraph.edges(g, 1:5, delete.vertices = FALSE)
-plot(g1)
-plot(g2)
-plot(g3)
-```
-
-
-
-
-
 
 ### Interactive plot
 https://juanitorduz.github.io/text-mining-networks-and-visualization-plebiscito-tweets/
